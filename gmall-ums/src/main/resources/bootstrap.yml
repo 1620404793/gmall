@@ -1,0 +1,12 @@
+##注册中心的配置-----分布式配置中心
+spring:
+  application:
+    name: ums-service
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: ums-id
+        group: dev
+        #默认是以.properties 更改后缀名
+        file-extension: yml
