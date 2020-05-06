@@ -17,8 +17,6 @@ import com.atguigu.gmall.sms.entity.CategoryBoundsEntity;
 import com.atguigu.gmall.sms.service.CategoryBoundsService;
 
 
-
-
 /**
  * 商品分类积分设置
  *
@@ -52,8 +50,8 @@ public class CategoryBoundsController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('sms:categorybounds:info')")
-    public Resp<CategoryBoundsEntity> info(@PathVariable("id") Long id){
-		CategoryBoundsEntity categoryBounds = categoryBoundsService.getById(id);
+    public Resp<CategoryBoundsEntity> info(@PathVariable("id") Long id) {
+        CategoryBoundsEntity categoryBounds = categoryBoundsService.getById(id);
 
         return Resp.ok(categoryBounds);
     }
@@ -64,8 +62,8 @@ public class CategoryBoundsController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('sms:categorybounds:save')")
-    public Resp<Object> save(@RequestBody CategoryBoundsEntity categoryBounds){
-		categoryBoundsService.save(categoryBounds);
+    public Resp<Object> save(@RequestBody CategoryBoundsEntity categoryBounds) {
+        categoryBoundsService.save(categoryBounds);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class CategoryBoundsController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sms:categorybounds:update')")
-    public Resp<Object> update(@RequestBody CategoryBoundsEntity categoryBounds){
-		categoryBoundsService.updateById(categoryBounds);
+    public Resp<Object> update(@RequestBody CategoryBoundsEntity categoryBounds) {
+        categoryBoundsService.updateById(categoryBounds);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class CategoryBoundsController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('sms:categorybounds:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		categoryBoundsService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        categoryBoundsService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

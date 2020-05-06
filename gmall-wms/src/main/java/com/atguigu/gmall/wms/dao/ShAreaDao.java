@@ -6,12 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 全国省市区信息
- * 
+ *
  * @author hechaocheng
  * @email 1620407593@qq.com
  * @date 2020-04-17 11:10:37
  */
 @Mapper
 public interface ShAreaDao extends BaseMapper<ShAreaEntity> {
-	
+
 }

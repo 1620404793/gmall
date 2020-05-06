@@ -17,8 +17,6 @@ import com.atguigu.gmall.oms.entity.OrderItemEntity;
 import com.atguigu.gmall.oms.service.OrderItemService;
 
 
-
-
 /**
  * 订单项信息
  *
@@ -52,8 +50,8 @@ public class OrderItemController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('oms:orderitem:info')")
-    public Resp<OrderItemEntity> info(@PathVariable("id") Long id){
-		OrderItemEntity orderItem = orderItemService.getById(id);
+    public Resp<OrderItemEntity> info(@PathVariable("id") Long id) {
+        OrderItemEntity orderItem = orderItemService.getById(id);
 
         return Resp.ok(orderItem);
     }
@@ -64,8 +62,8 @@ public class OrderItemController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('oms:orderitem:save')")
-    public Resp<Object> save(@RequestBody OrderItemEntity orderItem){
-		orderItemService.save(orderItem);
+    public Resp<Object> save(@RequestBody OrderItemEntity orderItem) {
+        orderItemService.save(orderItem);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class OrderItemController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('oms:orderitem:update')")
-    public Resp<Object> update(@RequestBody OrderItemEntity orderItem){
-		orderItemService.updateById(orderItem);
+    public Resp<Object> update(@RequestBody OrderItemEntity orderItem) {
+        orderItemService.updateById(orderItem);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class OrderItemController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('oms:orderitem:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		orderItemService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        orderItemService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

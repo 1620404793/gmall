@@ -17,8 +17,6 @@ import com.atguigu.gmall.sms.entity.SeckillSessionEntity;
 import com.atguigu.gmall.sms.service.SeckillSessionService;
 
 
-
-
 /**
  * 秒杀活动场次
  *
@@ -52,8 +50,8 @@ public class SeckillSessionController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('sms:seckillsession:info')")
-    public Resp<SeckillSessionEntity> info(@PathVariable("id") Long id){
-		SeckillSessionEntity seckillSession = seckillSessionService.getById(id);
+    public Resp<SeckillSessionEntity> info(@PathVariable("id") Long id) {
+        SeckillSessionEntity seckillSession = seckillSessionService.getById(id);
 
         return Resp.ok(seckillSession);
     }
@@ -64,8 +62,8 @@ public class SeckillSessionController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('sms:seckillsession:save')")
-    public Resp<Object> save(@RequestBody SeckillSessionEntity seckillSession){
-		seckillSessionService.save(seckillSession);
+    public Resp<Object> save(@RequestBody SeckillSessionEntity seckillSession) {
+        seckillSessionService.save(seckillSession);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class SeckillSessionController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sms:seckillsession:update')")
-    public Resp<Object> update(@RequestBody SeckillSessionEntity seckillSession){
-		seckillSessionService.updateById(seckillSession);
+    public Resp<Object> update(@RequestBody SeckillSessionEntity seckillSession) {
+        seckillSessionService.updateById(seckillSession);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class SeckillSessionController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('sms:seckillsession:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		seckillSessionService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        seckillSessionService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

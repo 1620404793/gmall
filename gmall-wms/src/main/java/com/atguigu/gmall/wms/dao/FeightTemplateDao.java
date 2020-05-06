@@ -6,12 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 运费模板
- * 
+ *
  * @author hechaocheng
  * @email 1620407593@qq.com
  * @date 2020-04-17 11:10:37
  */
 @Mapper
 public interface FeightTemplateDao extends BaseMapper<FeightTemplateEntity> {
-	
+
 }

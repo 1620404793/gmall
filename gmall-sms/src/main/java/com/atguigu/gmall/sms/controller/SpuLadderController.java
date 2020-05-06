@@ -17,8 +17,6 @@ import com.atguigu.gmall.sms.entity.SpuLadderEntity;
 import com.atguigu.gmall.sms.service.SpuLadderService;
 
 
-
-
 /**
  * 商品阶梯价格
  *
@@ -52,8 +50,8 @@ public class SpuLadderController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('sms:spuladder:info')")
-    public Resp<SpuLadderEntity> info(@PathVariable("id") Long id){
-		SpuLadderEntity spuLadder = spuLadderService.getById(id);
+    public Resp<SpuLadderEntity> info(@PathVariable("id") Long id) {
+        SpuLadderEntity spuLadder = spuLadderService.getById(id);
 
         return Resp.ok(spuLadder);
     }
@@ -64,8 +62,8 @@ public class SpuLadderController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('sms:spuladder:save')")
-    public Resp<Object> save(@RequestBody SpuLadderEntity spuLadder){
-		spuLadderService.save(spuLadder);
+    public Resp<Object> save(@RequestBody SpuLadderEntity spuLadder) {
+        spuLadderService.save(spuLadder);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class SpuLadderController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sms:spuladder:update')")
-    public Resp<Object> update(@RequestBody SpuLadderEntity spuLadder){
-		spuLadderService.updateById(spuLadder);
+    public Resp<Object> update(@RequestBody SpuLadderEntity spuLadder) {
+        spuLadderService.updateById(spuLadder);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class SpuLadderController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('sms:spuladder:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		spuLadderService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        spuLadderService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

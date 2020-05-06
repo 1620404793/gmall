@@ -17,8 +17,6 @@ import com.atguigu.gmall.oms.entity.PaymentInfoEntity;
 import com.atguigu.gmall.oms.service.PaymentInfoService;
 
 
-
-
 /**
  * 支付信息表
  *
@@ -52,8 +50,8 @@ public class PaymentInfoController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('oms:paymentinfo:info')")
-    public Resp<PaymentInfoEntity> info(@PathVariable("id") Long id){
-		PaymentInfoEntity paymentInfo = paymentInfoService.getById(id);
+    public Resp<PaymentInfoEntity> info(@PathVariable("id") Long id) {
+        PaymentInfoEntity paymentInfo = paymentInfoService.getById(id);
 
         return Resp.ok(paymentInfo);
     }
@@ -64,8 +62,8 @@ public class PaymentInfoController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('oms:paymentinfo:save')")
-    public Resp<Object> save(@RequestBody PaymentInfoEntity paymentInfo){
-		paymentInfoService.save(paymentInfo);
+    public Resp<Object> save(@RequestBody PaymentInfoEntity paymentInfo) {
+        paymentInfoService.save(paymentInfo);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class PaymentInfoController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('oms:paymentinfo:update')")
-    public Resp<Object> update(@RequestBody PaymentInfoEntity paymentInfo){
-		paymentInfoService.updateById(paymentInfo);
+    public Resp<Object> update(@RequestBody PaymentInfoEntity paymentInfo) {
+        paymentInfoService.updateById(paymentInfo);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class PaymentInfoController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('oms:paymentinfo:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		paymentInfoService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        paymentInfoService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

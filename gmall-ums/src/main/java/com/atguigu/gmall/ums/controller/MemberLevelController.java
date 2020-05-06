@@ -17,8 +17,6 @@ import com.atguigu.gmall.ums.entity.MemberLevelEntity;
 import com.atguigu.gmall.ums.service.MemberLevelService;
 
 
-
-
 /**
  * 会员等级
  *
@@ -52,8 +50,8 @@ public class MemberLevelController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('ums:memberlevel:info')")
-    public Resp<MemberLevelEntity> info(@PathVariable("id") Long id){
-		MemberLevelEntity memberLevel = memberLevelService.getById(id);
+    public Resp<MemberLevelEntity> info(@PathVariable("id") Long id) {
+        MemberLevelEntity memberLevel = memberLevelService.getById(id);
 
         return Resp.ok(memberLevel);
     }
@@ -64,8 +62,8 @@ public class MemberLevelController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('ums:memberlevel:save')")
-    public Resp<Object> save(@RequestBody MemberLevelEntity memberLevel){
-		memberLevelService.save(memberLevel);
+    public Resp<Object> save(@RequestBody MemberLevelEntity memberLevel) {
+        memberLevelService.save(memberLevel);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class MemberLevelController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('ums:memberlevel:update')")
-    public Resp<Object> update(@RequestBody MemberLevelEntity memberLevel){
-		memberLevelService.updateById(memberLevel);
+    public Resp<Object> update(@RequestBody MemberLevelEntity memberLevel) {
+        memberLevelService.updateById(memberLevel);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class MemberLevelController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('ums:memberlevel:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		memberLevelService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        memberLevelService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

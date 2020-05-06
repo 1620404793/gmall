@@ -17,8 +17,6 @@ import com.atguigu.gmall.wms.entity.ShAreaEntity;
 import com.atguigu.gmall.wms.service.ShAreaService;
 
 
-
-
 /**
  * 全国省市区信息
  *
@@ -52,8 +50,8 @@ public class ShAreaController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('wms:sharea:info')")
-    public Resp<ShAreaEntity> info(@PathVariable("id") Integer id){
-		ShAreaEntity shArea = shAreaService.getById(id);
+    public Resp<ShAreaEntity> info(@PathVariable("id") Integer id) {
+        ShAreaEntity shArea = shAreaService.getById(id);
 
         return Resp.ok(shArea);
     }
@@ -64,8 +62,8 @@ public class ShAreaController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('wms:sharea:save')")
-    public Resp<Object> save(@RequestBody ShAreaEntity shArea){
-		shAreaService.save(shArea);
+    public Resp<Object> save(@RequestBody ShAreaEntity shArea) {
+        shAreaService.save(shArea);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class ShAreaController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('wms:sharea:update')")
-    public Resp<Object> update(@RequestBody ShAreaEntity shArea){
-		shAreaService.updateById(shArea);
+    public Resp<Object> update(@RequestBody ShAreaEntity shArea) {
+        shAreaService.updateById(shArea);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class ShAreaController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('wms:sharea:delete')")
-    public Resp<Object> delete(@RequestBody Integer[] ids){
-		shAreaService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Integer[] ids) {
+        shAreaService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

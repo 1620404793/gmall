@@ -17,8 +17,6 @@ import com.atguigu.gmall.sms.entity.HomeSubjectSpuEntity;
 import com.atguigu.gmall.sms.service.HomeSubjectSpuService;
 
 
-
-
 /**
  * 专题商品
  *
@@ -52,8 +50,8 @@ public class HomeSubjectSpuController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('sms:homesubjectspu:info')")
-    public Resp<HomeSubjectSpuEntity> info(@PathVariable("id") Long id){
-		HomeSubjectSpuEntity homeSubjectSpu = homeSubjectSpuService.getById(id);
+    public Resp<HomeSubjectSpuEntity> info(@PathVariable("id") Long id) {
+        HomeSubjectSpuEntity homeSubjectSpu = homeSubjectSpuService.getById(id);
 
         return Resp.ok(homeSubjectSpu);
     }
@@ -64,8 +62,8 @@ public class HomeSubjectSpuController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('sms:homesubjectspu:save')")
-    public Resp<Object> save(@RequestBody HomeSubjectSpuEntity homeSubjectSpu){
-		homeSubjectSpuService.save(homeSubjectSpu);
+    public Resp<Object> save(@RequestBody HomeSubjectSpuEntity homeSubjectSpu) {
+        homeSubjectSpuService.save(homeSubjectSpu);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class HomeSubjectSpuController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sms:homesubjectspu:update')")
-    public Resp<Object> update(@RequestBody HomeSubjectSpuEntity homeSubjectSpu){
-		homeSubjectSpuService.updateById(homeSubjectSpu);
+    public Resp<Object> update(@RequestBody HomeSubjectSpuEntity homeSubjectSpu) {
+        homeSubjectSpuService.updateById(homeSubjectSpu);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class HomeSubjectSpuController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('sms:homesubjectspu:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		homeSubjectSpuService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        homeSubjectSpuService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

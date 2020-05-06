@@ -17,8 +17,6 @@ import com.atguigu.gmall.wms.entity.FeightTemplateEntity;
 import com.atguigu.gmall.wms.service.FeightTemplateService;
 
 
-
-
 /**
  * 运费模板
  *
@@ -52,8 +50,8 @@ public class FeightTemplateController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('wms:feighttemplate:info')")
-    public Resp<FeightTemplateEntity> info(@PathVariable("id") Long id){
-		FeightTemplateEntity feightTemplate = feightTemplateService.getById(id);
+    public Resp<FeightTemplateEntity> info(@PathVariable("id") Long id) {
+        FeightTemplateEntity feightTemplate = feightTemplateService.getById(id);
 
         return Resp.ok(feightTemplate);
     }
@@ -64,8 +62,8 @@ public class FeightTemplateController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('wms:feighttemplate:save')")
-    public Resp<Object> save(@RequestBody FeightTemplateEntity feightTemplate){
-		feightTemplateService.save(feightTemplate);
+    public Resp<Object> save(@RequestBody FeightTemplateEntity feightTemplate) {
+        feightTemplateService.save(feightTemplate);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class FeightTemplateController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('wms:feighttemplate:update')")
-    public Resp<Object> update(@RequestBody FeightTemplateEntity feightTemplate){
-		feightTemplateService.updateById(feightTemplate);
+    public Resp<Object> update(@RequestBody FeightTemplateEntity feightTemplate) {
+        feightTemplateService.updateById(feightTemplate);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class FeightTemplateController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('wms:feighttemplate:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		feightTemplateService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        feightTemplateService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

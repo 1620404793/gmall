@@ -17,8 +17,6 @@ import com.atguigu.gmall.sms.entity.SeckillSkuNoticeEntity;
 import com.atguigu.gmall.sms.service.SeckillSkuNoticeService;
 
 
-
-
 /**
  * 秒杀商品通知订阅
  *
@@ -52,8 +50,8 @@ public class SeckillSkuNoticeController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('sms:seckillskunotice:info')")
-    public Resp<SeckillSkuNoticeEntity> info(@PathVariable("id") Long id){
-		SeckillSkuNoticeEntity seckillSkuNotice = seckillSkuNoticeService.getById(id);
+    public Resp<SeckillSkuNoticeEntity> info(@PathVariable("id") Long id) {
+        SeckillSkuNoticeEntity seckillSkuNotice = seckillSkuNoticeService.getById(id);
 
         return Resp.ok(seckillSkuNotice);
     }
@@ -64,8 +62,8 @@ public class SeckillSkuNoticeController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('sms:seckillskunotice:save')")
-    public Resp<Object> save(@RequestBody SeckillSkuNoticeEntity seckillSkuNotice){
-		seckillSkuNoticeService.save(seckillSkuNotice);
+    public Resp<Object> save(@RequestBody SeckillSkuNoticeEntity seckillSkuNotice) {
+        seckillSkuNoticeService.save(seckillSkuNotice);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class SeckillSkuNoticeController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sms:seckillskunotice:update')")
-    public Resp<Object> update(@RequestBody SeckillSkuNoticeEntity seckillSkuNotice){
-		seckillSkuNoticeService.updateById(seckillSkuNotice);
+    public Resp<Object> update(@RequestBody SeckillSkuNoticeEntity seckillSkuNotice) {
+        seckillSkuNoticeService.updateById(seckillSkuNotice);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class SeckillSkuNoticeController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('sms:seckillskunotice:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		seckillSkuNoticeService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        seckillSkuNoticeService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

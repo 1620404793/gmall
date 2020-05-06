@@ -1,0 +1,40 @@
+server:
+  port: 8888
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: pms-route
+          uri: lb://pms-service
+          predicates:
+            - Path=/pms/**
+        - id: oms-route
+          uri: lb://oms-service
+          predicates:
+            - Path=/oms/**
+        - id: ums-route
+          uri: lb://ums-service
+          predicates:
+            - Path=/ums/**
+        - id: wms-route
+          uri: lb://wms-service
+          predicates:
+            - Path=/wms/**
+        - id: sms-route
+          uri: lb://sms-service
+          predicates:
+            - Path=/sms/**
+        - id: index-route
+          uri: lb://index-service
+          predicates:
+            - Path=/api/index/**
+          filters:
+            - RewritePath=/api(?<segment>/?.*), $\{segment}
+
+#没有配置服务名称的话，注册中心列表找不到该服务
+  #注意服务名和server-addr的层级关系 不然会出错
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  application:
+    name: gateway-service

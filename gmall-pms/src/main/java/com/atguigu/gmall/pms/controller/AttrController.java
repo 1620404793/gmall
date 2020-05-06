@@ -7,6 +7,7 @@ import java.util.Map;
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
+import com.atguigu.gmall.pms.vo.AttrVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.atguigu.gmall.pms.entity.AttrEntity;
 import com.atguigu.gmall.pms.service.AttrService;
-
-
 
 
 /**
@@ -32,6 +31,13 @@ import com.atguigu.gmall.pms.service.AttrService;
 public class AttrController {
     @Autowired
     private AttrService attrService;
+
+    @ApiOperation("根据类型和级别查询商品属性(排序)")
+    @GetMapping
+    public Resp<PageVo> queryAttrsByCid(QueryCondition queryCondition,@RequestParam("cid")Long cid,@RequestParam(value = "type",defaultValue = "1")Integer type){
+        PageVo page = attrService.queryAttrsByCid(queryCondition,cid,type);
+        return Resp.ok(page);
+    }
 
     /**
      * 列表
@@ -52,8 +58,8 @@ public class AttrController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{attrId}")
     @PreAuthorize("hasAuthority('pms:attr:info')")
-    public Resp<AttrEntity> info(@PathVariable("attrId") Long attrId){
-		AttrEntity attr = attrService.getById(attrId);
+    public Resp<AttrEntity> info(@PathVariable("attrId") Long attrId) {
+        AttrEntity attr = attrService.getById(attrId);
 
         return Resp.ok(attr);
     }
@@ -64,8 +70,8 @@ public class AttrController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('pms:attr:save')")
-    public Resp<Object> save(@RequestBody AttrEntity attr){
-		attrService.save(attr);
+    public Resp<Object> save(@RequestBody AttrVO attrVO) {
+        attrService.saveAttrVO(attrVO);
 
         return Resp.ok(null);
     }
@@ -76,8 +82,8 @@ public class AttrController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('pms:attr:update')")
-    public Resp<Object> update(@RequestBody AttrEntity attr){
-		attrService.updateById(attr);
+    public Resp<Object> update(@RequestBody AttrEntity attr) {
+        attrService.updateById(attr);
 
         return Resp.ok(null);
     }
@@ -88,8 +94,8 @@ public class AttrController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('pms:attr:delete')")
-    public Resp<Object> delete(@RequestBody Long[] attrIds){
-		attrService.removeByIds(Arrays.asList(attrIds));
+    public Resp<Object> delete(@RequestBody Long[] attrIds) {
+        attrService.removeByIds(Arrays.asList(attrIds));
 
         return Resp.ok(null);
     }

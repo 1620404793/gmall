@@ -17,8 +17,6 @@ import com.atguigu.gmall.pms.entity.SkuImagesEntity;
 import com.atguigu.gmall.pms.service.SkuImagesService;
 
 
-
-
 /**
  * sku图片
  *
@@ -52,8 +50,8 @@ public class SkuImagesController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('pms:skuimages:info')")
-    public Resp<SkuImagesEntity> info(@PathVariable("id") Long id){
-		SkuImagesEntity skuImages = skuImagesService.getById(id);
+    public Resp<SkuImagesEntity> info(@PathVariable("id") Long id) {
+        SkuImagesEntity skuImages = skuImagesService.getById(id);
 
         return Resp.ok(skuImages);
     }
@@ -64,8 +62,8 @@ public class SkuImagesController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('pms:skuimages:save')")
-    public Resp<Object> save(@RequestBody SkuImagesEntity skuImages){
-		skuImagesService.save(skuImages);
+    public Resp<Object> save(@RequestBody SkuImagesEntity skuImages) {
+        skuImagesService.save(skuImages);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class SkuImagesController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('pms:skuimages:update')")
-    public Resp<Object> update(@RequestBody SkuImagesEntity skuImages){
-		skuImagesService.updateById(skuImages);
+    public Resp<Object> update(@RequestBody SkuImagesEntity skuImages) {
+        skuImagesService.updateById(skuImages);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class SkuImagesController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('pms:skuimages:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		skuImagesService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        skuImagesService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

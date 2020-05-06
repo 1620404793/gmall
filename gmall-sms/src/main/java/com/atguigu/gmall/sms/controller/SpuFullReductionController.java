@@ -17,8 +17,6 @@ import com.atguigu.gmall.sms.entity.SpuFullReductionEntity;
 import com.atguigu.gmall.sms.service.SpuFullReductionService;
 
 
-
-
 /**
  * 商品满减信息
  *
@@ -52,8 +50,8 @@ public class SpuFullReductionController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('sms:spufullreduction:info')")
-    public Resp<SpuFullReductionEntity> info(@PathVariable("id") Long id){
-		SpuFullReductionEntity spuFullReduction = spuFullReductionService.getById(id);
+    public Resp<SpuFullReductionEntity> info(@PathVariable("id") Long id) {
+        SpuFullReductionEntity spuFullReduction = spuFullReductionService.getById(id);
 
         return Resp.ok(spuFullReduction);
     }
@@ -64,8 +62,8 @@ public class SpuFullReductionController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('sms:spufullreduction:save')")
-    public Resp<Object> save(@RequestBody SpuFullReductionEntity spuFullReduction){
-		spuFullReductionService.save(spuFullReduction);
+    public Resp<Object> save(@RequestBody SpuFullReductionEntity spuFullReduction) {
+        spuFullReductionService.save(spuFullReduction);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class SpuFullReductionController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sms:spufullreduction:update')")
-    public Resp<Object> update(@RequestBody SpuFullReductionEntity spuFullReduction){
-		spuFullReductionService.updateById(spuFullReduction);
+    public Resp<Object> update(@RequestBody SpuFullReductionEntity spuFullReduction) {
+        spuFullReductionService.updateById(spuFullReduction);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class SpuFullReductionController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('sms:spufullreduction:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		spuFullReductionService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        spuFullReductionService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

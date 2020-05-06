@@ -17,8 +17,6 @@ import com.atguigu.gmall.ums.entity.MemberCollectSpuEntity;
 import com.atguigu.gmall.ums.service.MemberCollectSpuService;
 
 
-
-
 /**
  * 会员收藏的商品
  *
@@ -52,8 +50,8 @@ public class MemberCollectSpuController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('ums:membercollectspu:info')")
-    public Resp<MemberCollectSpuEntity> info(@PathVariable("id") Long id){
-		MemberCollectSpuEntity memberCollectSpu = memberCollectSpuService.getById(id);
+    public Resp<MemberCollectSpuEntity> info(@PathVariable("id") Long id) {
+        MemberCollectSpuEntity memberCollectSpu = memberCollectSpuService.getById(id);
 
         return Resp.ok(memberCollectSpu);
     }
@@ -64,8 +62,8 @@ public class MemberCollectSpuController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('ums:membercollectspu:save')")
-    public Resp<Object> save(@RequestBody MemberCollectSpuEntity memberCollectSpu){
-		memberCollectSpuService.save(memberCollectSpu);
+    public Resp<Object> save(@RequestBody MemberCollectSpuEntity memberCollectSpu) {
+        memberCollectSpuService.save(memberCollectSpu);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class MemberCollectSpuController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('ums:membercollectspu:update')")
-    public Resp<Object> update(@RequestBody MemberCollectSpuEntity memberCollectSpu){
-		memberCollectSpuService.updateById(memberCollectSpu);
+    public Resp<Object> update(@RequestBody MemberCollectSpuEntity memberCollectSpu) {
+        memberCollectSpuService.updateById(memberCollectSpu);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class MemberCollectSpuController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('ums:membercollectspu:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		memberCollectSpuService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        memberCollectSpuService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

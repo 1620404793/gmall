@@ -17,8 +17,6 @@ import com.atguigu.gmall.oms.entity.OrderReturnReasonEntity;
 import com.atguigu.gmall.oms.service.OrderReturnReasonService;
 
 
-
-
 /**
  * 退货原因
  *
@@ -52,8 +50,8 @@ public class OrderReturnReasonController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('oms:orderreturnreason:info')")
-    public Resp<OrderReturnReasonEntity> info(@PathVariable("id") Long id){
-		OrderReturnReasonEntity orderReturnReason = orderReturnReasonService.getById(id);
+    public Resp<OrderReturnReasonEntity> info(@PathVariable("id") Long id) {
+        OrderReturnReasonEntity orderReturnReason = orderReturnReasonService.getById(id);
 
         return Resp.ok(orderReturnReason);
     }
@@ -64,8 +62,8 @@ public class OrderReturnReasonController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('oms:orderreturnreason:save')")
-    public Resp<Object> save(@RequestBody OrderReturnReasonEntity orderReturnReason){
-		orderReturnReasonService.save(orderReturnReason);
+    public Resp<Object> save(@RequestBody OrderReturnReasonEntity orderReturnReason) {
+        orderReturnReasonService.save(orderReturnReason);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class OrderReturnReasonController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('oms:orderreturnreason:update')")
-    public Resp<Object> update(@RequestBody OrderReturnReasonEntity orderReturnReason){
-		orderReturnReasonService.updateById(orderReturnReason);
+    public Resp<Object> update(@RequestBody OrderReturnReasonEntity orderReturnReason) {
+        orderReturnReasonService.updateById(orderReturnReason);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class OrderReturnReasonController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('oms:orderreturnreason:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		orderReturnReasonService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        orderReturnReasonService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

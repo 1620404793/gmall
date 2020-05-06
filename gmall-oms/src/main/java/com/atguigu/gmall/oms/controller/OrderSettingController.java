@@ -17,8 +17,6 @@ import com.atguigu.gmall.oms.entity.OrderSettingEntity;
 import com.atguigu.gmall.oms.service.OrderSettingService;
 
 
-
-
 /**
  * 订单配置信息
  *
@@ -52,8 +50,8 @@ public class OrderSettingController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('oms:ordersetting:info')")
-    public Resp<OrderSettingEntity> info(@PathVariable("id") Long id){
-		OrderSettingEntity orderSetting = orderSettingService.getById(id);
+    public Resp<OrderSettingEntity> info(@PathVariable("id") Long id) {
+        OrderSettingEntity orderSetting = orderSettingService.getById(id);
 
         return Resp.ok(orderSetting);
     }
@@ -64,8 +62,8 @@ public class OrderSettingController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('oms:ordersetting:save')")
-    public Resp<Object> save(@RequestBody OrderSettingEntity orderSetting){
-		orderSettingService.save(orderSetting);
+    public Resp<Object> save(@RequestBody OrderSettingEntity orderSetting) {
+        orderSettingService.save(orderSetting);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class OrderSettingController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('oms:ordersetting:update')")
-    public Resp<Object> update(@RequestBody OrderSettingEntity orderSetting){
-		orderSettingService.updateById(orderSetting);
+    public Resp<Object> update(@RequestBody OrderSettingEntity orderSetting) {
+        orderSettingService.updateById(orderSetting);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class OrderSettingController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('oms:ordersetting:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		orderSettingService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        orderSettingService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

@@ -17,8 +17,6 @@ import ${package}.${moduleName}.entity.${className}Entity;
 import ${package}.${moduleName}.service.${className}Service;
 
 
-
-
 /**
  * ${comments}
  *
@@ -52,8 +50,8 @@ public class ${className}Controller {
     @ApiOperation("详情查询")
     @GetMapping("/info/{${pk.attrname}}")
     @PreAuthorize("hasAuthority('${moduleName}:${pathName}:info')")
-    public Resp<${className}Entity> info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
-		${className}Entity ${classname} = ${classname}Service.getById(${pk.attrname});
+    public Resp<${className}Entity> info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}) {
+            ${className}Entity ${classname} = ${classname}Service.getById(${pk.attrname});
 
         return Resp.ok(${classname});
     }
@@ -64,8 +62,8 @@ public class ${className}Controller {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('${moduleName}:${pathName}:save')")
-    public Resp<Object> save(@RequestBody ${className}Entity ${classname}){
-		${classname}Service.save(${classname});
+    public Resp<Object> save(@RequestBody ${className}Entity ${classname}) {
+            ${classname}Service.save(${classname});
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class ${className}Controller {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('${moduleName}:${pathName}:update')")
-    public Resp<Object> update(@RequestBody ${className}Entity ${classname}){
-		${classname}Service.updateById(${classname});
+    public Resp<Object> update(@RequestBody ${className}Entity ${classname}) {
+            ${classname}Service.updateById(${classname});
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class ${className}Controller {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('${moduleName}:${pathName}:delete')")
-    public Resp<Object> delete(@RequestBody ${pk.attrType}[] ${pk.attrname}s){
-		${classname}Service.removeByIds(Arrays.asList(${pk.attrname}s));
+    public Resp<Object> delete(@RequestBody ${pk.attrType}[] ${pk.attrname}s) {
+            ${classname}Service.removeByIds(Arrays.asList(${pk.attrname}s));
 
         return Resp.ok(null);
     }

@@ -17,8 +17,6 @@ import com.atguigu.gmall.ums.entity.MemberStatisticsInfoEntity;
 import com.atguigu.gmall.ums.service.MemberStatisticsInfoService;
 
 
-
-
 /**
  * 会员统计信息
  *
@@ -52,8 +50,8 @@ public class MemberStatisticsInfoController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('ums:memberstatisticsinfo:info')")
-    public Resp<MemberStatisticsInfoEntity> info(@PathVariable("id") Long id){
-		MemberStatisticsInfoEntity memberStatisticsInfo = memberStatisticsInfoService.getById(id);
+    public Resp<MemberStatisticsInfoEntity> info(@PathVariable("id") Long id) {
+        MemberStatisticsInfoEntity memberStatisticsInfo = memberStatisticsInfoService.getById(id);
 
         return Resp.ok(memberStatisticsInfo);
     }
@@ -64,8 +62,8 @@ public class MemberStatisticsInfoController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('ums:memberstatisticsinfo:save')")
-    public Resp<Object> save(@RequestBody MemberStatisticsInfoEntity memberStatisticsInfo){
-		memberStatisticsInfoService.save(memberStatisticsInfo);
+    public Resp<Object> save(@RequestBody MemberStatisticsInfoEntity memberStatisticsInfo) {
+        memberStatisticsInfoService.save(memberStatisticsInfo);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class MemberStatisticsInfoController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('ums:memberstatisticsinfo:update')")
-    public Resp<Object> update(@RequestBody MemberStatisticsInfoEntity memberStatisticsInfo){
-		memberStatisticsInfoService.updateById(memberStatisticsInfo);
+    public Resp<Object> update(@RequestBody MemberStatisticsInfoEntity memberStatisticsInfo) {
+        memberStatisticsInfoService.updateById(memberStatisticsInfo);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class MemberStatisticsInfoController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('ums:memberstatisticsinfo:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		memberStatisticsInfoService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        memberStatisticsInfoService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

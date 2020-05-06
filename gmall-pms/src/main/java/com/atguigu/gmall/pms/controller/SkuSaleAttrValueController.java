@@ -17,8 +17,6 @@ import com.atguigu.gmall.pms.entity.SkuSaleAttrValueEntity;
 import com.atguigu.gmall.pms.service.SkuSaleAttrValueService;
 
 
-
-
 /**
  * sku销售属性&值
  *
@@ -52,8 +50,8 @@ public class SkuSaleAttrValueController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('pms:skusaleattrvalue:info')")
-    public Resp<SkuSaleAttrValueEntity> info(@PathVariable("id") Long id){
-		SkuSaleAttrValueEntity skuSaleAttrValue = skuSaleAttrValueService.getById(id);
+    public Resp<SkuSaleAttrValueEntity> info(@PathVariable("id") Long id) {
+        SkuSaleAttrValueEntity skuSaleAttrValue = skuSaleAttrValueService.getById(id);
 
         return Resp.ok(skuSaleAttrValue);
     }
@@ -64,8 +62,8 @@ public class SkuSaleAttrValueController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('pms:skusaleattrvalue:save')")
-    public Resp<Object> save(@RequestBody SkuSaleAttrValueEntity skuSaleAttrValue){
-		skuSaleAttrValueService.save(skuSaleAttrValue);
+    public Resp<Object> save(@RequestBody SkuSaleAttrValueEntity skuSaleAttrValue) {
+        skuSaleAttrValueService.save(skuSaleAttrValue);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class SkuSaleAttrValueController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('pms:skusaleattrvalue:update')")
-    public Resp<Object> update(@RequestBody SkuSaleAttrValueEntity skuSaleAttrValue){
-		skuSaleAttrValueService.updateById(skuSaleAttrValue);
+    public Resp<Object> update(@RequestBody SkuSaleAttrValueEntity skuSaleAttrValue) {
+        skuSaleAttrValueService.updateById(skuSaleAttrValue);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class SkuSaleAttrValueController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('pms:skusaleattrvalue:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		skuSaleAttrValueService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        skuSaleAttrValueService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

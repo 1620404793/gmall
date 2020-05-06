@@ -17,8 +17,6 @@ import com.atguigu.gmall.ums.entity.MemberLoginLogEntity;
 import com.atguigu.gmall.ums.service.MemberLoginLogService;
 
 
-
-
 /**
  * 会员登录记录
  *
@@ -52,8 +50,8 @@ public class MemberLoginLogController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('ums:memberloginlog:info')")
-    public Resp<MemberLoginLogEntity> info(@PathVariable("id") Long id){
-		MemberLoginLogEntity memberLoginLog = memberLoginLogService.getById(id);
+    public Resp<MemberLoginLogEntity> info(@PathVariable("id") Long id) {
+        MemberLoginLogEntity memberLoginLog = memberLoginLogService.getById(id);
 
         return Resp.ok(memberLoginLog);
     }
@@ -64,8 +62,8 @@ public class MemberLoginLogController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('ums:memberloginlog:save')")
-    public Resp<Object> save(@RequestBody MemberLoginLogEntity memberLoginLog){
-		memberLoginLogService.save(memberLoginLog);
+    public Resp<Object> save(@RequestBody MemberLoginLogEntity memberLoginLog) {
+        memberLoginLogService.save(memberLoginLog);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class MemberLoginLogController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('ums:memberloginlog:update')")
-    public Resp<Object> update(@RequestBody MemberLoginLogEntity memberLoginLog){
-		memberLoginLogService.updateById(memberLoginLog);
+    public Resp<Object> update(@RequestBody MemberLoginLogEntity memberLoginLog) {
+        memberLoginLogService.updateById(memberLoginLog);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class MemberLoginLogController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('ums:memberloginlog:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		memberLoginLogService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        memberLoginLogService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

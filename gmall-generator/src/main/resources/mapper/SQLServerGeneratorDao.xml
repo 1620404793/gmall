@@ -2,22 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.atguigu.dao.SQLServerGeneratorDao">
-	<select id="queryList" resultType="map">
-		select * from
-		(
-		select cast(so.name as varchar(500)) as tableName, cast(sep.value as varchar(500)) as tableComment, getDate() as createTime
-		from sysobjects so
-		left JOIN sys.extended_properties sep
-		on sep.major_id=so.id and sep.minor_id=0
-		where (xtype='U' or xtype='v')
-		) t where 1=1
-		<if test="tableName != null and tableName.trim() != ''">
-			and t.tableName like concat('%', #{tableName}, '%')
-		</if>
-		order by t.tableName
-	</select>
+    <select id="queryList" resultType="map">
+        select * from
+        (
+        select cast(so.name as varchar(500)) as tableName, cast(sep.value as varchar(500)) as tableComment, getDate() as
+        createTime
+        from sysobjects so
+        left JOIN sys.extended_properties sep
+        on sep.major_id=so.id and sep.minor_id=0
+        where (xtype='U' or xtype='v')
+        ) t where 1=1
+        <if test="tableName != null and tableName.trim() != ''">
+            and t.tableName like concat('%', #{tableName}, '%')
+        </if>
+        order by t.tableName
+    </select>
 
-	<select id="queryTable" resultType="map">
+    <select id="queryTable" resultType="map">
 		select * from (
 			select cast(so.name as varchar(500)) as tableName, 'mssql' as engine,cast(sep.value as varchar(500)) as tableComment, getDate() as createTime
 			from sysobjects so
@@ -26,7 +27,7 @@
 		) t where t.tableName=#{tableName}
 	</select>
 
-	<select id="queryColumns" resultType="map">
+    <select id="queryColumns" resultType="map">
 		SELECT
 		cast(
 			b.NAME AS VARCHAR(500)

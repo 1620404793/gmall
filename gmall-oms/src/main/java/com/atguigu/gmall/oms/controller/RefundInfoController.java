@@ -17,8 +17,6 @@ import com.atguigu.gmall.oms.entity.RefundInfoEntity;
 import com.atguigu.gmall.oms.service.RefundInfoService;
 
 
-
-
 /**
  * 退款信息
  *
@@ -52,8 +50,8 @@ public class RefundInfoController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('oms:refundinfo:info')")
-    public Resp<RefundInfoEntity> info(@PathVariable("id") Long id){
-		RefundInfoEntity refundInfo = refundInfoService.getById(id);
+    public Resp<RefundInfoEntity> info(@PathVariable("id") Long id) {
+        RefundInfoEntity refundInfo = refundInfoService.getById(id);
 
         return Resp.ok(refundInfo);
     }
@@ -64,8 +62,8 @@ public class RefundInfoController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('oms:refundinfo:save')")
-    public Resp<Object> save(@RequestBody RefundInfoEntity refundInfo){
-		refundInfoService.save(refundInfo);
+    public Resp<Object> save(@RequestBody RefundInfoEntity refundInfo) {
+        refundInfoService.save(refundInfo);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class RefundInfoController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('oms:refundinfo:update')")
-    public Resp<Object> update(@RequestBody RefundInfoEntity refundInfo){
-		refundInfoService.updateById(refundInfo);
+    public Resp<Object> update(@RequestBody RefundInfoEntity refundInfo) {
+        refundInfoService.updateById(refundInfo);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class RefundInfoController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('oms:refundinfo:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		refundInfoService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        refundInfoService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

@@ -17,8 +17,6 @@ import com.atguigu.gmall.oms.entity.OrderReturnApplyEntity;
 import com.atguigu.gmall.oms.service.OrderReturnApplyService;
 
 
-
-
 /**
  * 订单退货申请
  *
@@ -52,8 +50,8 @@ public class OrderReturnApplyController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('oms:orderreturnapply:info')")
-    public Resp<OrderReturnApplyEntity> info(@PathVariable("id") Long id){
-		OrderReturnApplyEntity orderReturnApply = orderReturnApplyService.getById(id);
+    public Resp<OrderReturnApplyEntity> info(@PathVariable("id") Long id) {
+        OrderReturnApplyEntity orderReturnApply = orderReturnApplyService.getById(id);
 
         return Resp.ok(orderReturnApply);
     }
@@ -64,8 +62,8 @@ public class OrderReturnApplyController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('oms:orderreturnapply:save')")
-    public Resp<Object> save(@RequestBody OrderReturnApplyEntity orderReturnApply){
-		orderReturnApplyService.save(orderReturnApply);
+    public Resp<Object> save(@RequestBody OrderReturnApplyEntity orderReturnApply) {
+        orderReturnApplyService.save(orderReturnApply);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class OrderReturnApplyController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('oms:orderreturnapply:update')")
-    public Resp<Object> update(@RequestBody OrderReturnApplyEntity orderReturnApply){
-		orderReturnApplyService.updateById(orderReturnApply);
+    public Resp<Object> update(@RequestBody OrderReturnApplyEntity orderReturnApply) {
+        orderReturnApplyService.updateById(orderReturnApply);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class OrderReturnApplyController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('oms:orderreturnapply:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		orderReturnApplyService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        orderReturnApplyService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

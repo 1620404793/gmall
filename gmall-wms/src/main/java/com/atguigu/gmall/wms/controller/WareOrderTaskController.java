@@ -17,8 +17,6 @@ import com.atguigu.gmall.wms.entity.WareOrderTaskEntity;
 import com.atguigu.gmall.wms.service.WareOrderTaskService;
 
 
-
-
 /**
  * 库存工作单
  *
@@ -52,8 +50,8 @@ public class WareOrderTaskController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('wms:wareordertask:info')")
-    public Resp<WareOrderTaskEntity> info(@PathVariable("id") Long id){
-		WareOrderTaskEntity wareOrderTask = wareOrderTaskService.getById(id);
+    public Resp<WareOrderTaskEntity> info(@PathVariable("id") Long id) {
+        WareOrderTaskEntity wareOrderTask = wareOrderTaskService.getById(id);
 
         return Resp.ok(wareOrderTask);
     }
@@ -64,8 +62,8 @@ public class WareOrderTaskController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('wms:wareordertask:save')")
-    public Resp<Object> save(@RequestBody WareOrderTaskEntity wareOrderTask){
-		wareOrderTaskService.save(wareOrderTask);
+    public Resp<Object> save(@RequestBody WareOrderTaskEntity wareOrderTask) {
+        wareOrderTaskService.save(wareOrderTask);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class WareOrderTaskController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('wms:wareordertask:update')")
-    public Resp<Object> update(@RequestBody WareOrderTaskEntity wareOrderTask){
-		wareOrderTaskService.updateById(wareOrderTask);
+    public Resp<Object> update(@RequestBody WareOrderTaskEntity wareOrderTask) {
+        wareOrderTaskService.updateById(wareOrderTask);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class WareOrderTaskController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('wms:wareordertask:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		wareOrderTaskService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        wareOrderTaskService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

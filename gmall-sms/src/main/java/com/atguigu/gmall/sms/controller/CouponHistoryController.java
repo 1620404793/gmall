@@ -17,8 +17,6 @@ import com.atguigu.gmall.sms.entity.CouponHistoryEntity;
 import com.atguigu.gmall.sms.service.CouponHistoryService;
 
 
-
-
 /**
  * 优惠券领取历史记录
  *
@@ -52,8 +50,8 @@ public class CouponHistoryController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('sms:couponhistory:info')")
-    public Resp<CouponHistoryEntity> info(@PathVariable("id") Long id){
-		CouponHistoryEntity couponHistory = couponHistoryService.getById(id);
+    public Resp<CouponHistoryEntity> info(@PathVariable("id") Long id) {
+        CouponHistoryEntity couponHistory = couponHistoryService.getById(id);
 
         return Resp.ok(couponHistory);
     }
@@ -64,8 +62,8 @@ public class CouponHistoryController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('sms:couponhistory:save')")
-    public Resp<Object> save(@RequestBody CouponHistoryEntity couponHistory){
-		couponHistoryService.save(couponHistory);
+    public Resp<Object> save(@RequestBody CouponHistoryEntity couponHistory) {
+        couponHistoryService.save(couponHistory);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class CouponHistoryController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sms:couponhistory:update')")
-    public Resp<Object> update(@RequestBody CouponHistoryEntity couponHistory){
-		couponHistoryService.updateById(couponHistory);
+    public Resp<Object> update(@RequestBody CouponHistoryEntity couponHistory) {
+        couponHistoryService.updateById(couponHistory);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class CouponHistoryController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('sms:couponhistory:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		couponHistoryService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        couponHistoryService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }

@@ -17,8 +17,6 @@ import com.atguigu.gmall.oms.entity.OrderOperateHistoryEntity;
 import com.atguigu.gmall.oms.service.OrderOperateHistoryService;
 
 
-
-
 /**
  * 订单操作历史记录
  *
@@ -52,8 +50,8 @@ public class OrderOperateHistoryController {
     @ApiOperation("详情查询")
     @GetMapping("/info/{id}")
     @PreAuthorize("hasAuthority('oms:orderoperatehistory:info')")
-    public Resp<OrderOperateHistoryEntity> info(@PathVariable("id") Long id){
-		OrderOperateHistoryEntity orderOperateHistory = orderOperateHistoryService.getById(id);
+    public Resp<OrderOperateHistoryEntity> info(@PathVariable("id") Long id) {
+        OrderOperateHistoryEntity orderOperateHistory = orderOperateHistoryService.getById(id);
 
         return Resp.ok(orderOperateHistory);
     }
@@ -64,8 +62,8 @@ public class OrderOperateHistoryController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('oms:orderoperatehistory:save')")
-    public Resp<Object> save(@RequestBody OrderOperateHistoryEntity orderOperateHistory){
-		orderOperateHistoryService.save(orderOperateHistory);
+    public Resp<Object> save(@RequestBody OrderOperateHistoryEntity orderOperateHistory) {
+        orderOperateHistoryService.save(orderOperateHistory);
 
         return Resp.ok(null);
     }
@@ -76,8 +74,8 @@ public class OrderOperateHistoryController {
     @ApiOperation("修改")
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('oms:orderoperatehistory:update')")
-    public Resp<Object> update(@RequestBody OrderOperateHistoryEntity orderOperateHistory){
-		orderOperateHistoryService.updateById(orderOperateHistory);
+    public Resp<Object> update(@RequestBody OrderOperateHistoryEntity orderOperateHistory) {
+        orderOperateHistoryService.updateById(orderOperateHistory);
 
         return Resp.ok(null);
     }
@@ -88,8 +86,8 @@ public class OrderOperateHistoryController {
     @ApiOperation("删除")
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('oms:orderoperatehistory:delete')")
-    public Resp<Object> delete(@RequestBody Long[] ids){
-		orderOperateHistoryService.removeByIds(Arrays.asList(ids));
+    public Resp<Object> delete(@RequestBody Long[] ids) {
+        orderOperateHistoryService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);
     }
