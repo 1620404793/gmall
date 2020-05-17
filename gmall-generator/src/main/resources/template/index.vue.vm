@@ -102,18 +102,18 @@
                         #[[params
             :
                 this.$http.adornParams({
-            ]]
+                ]]
                 #
-                        'page'
-            :
+                    'page'
+                :
                 this.pageIndex,
-                        'limit'
-            :
+                    'limit'
+                :
                 this.pageSize,
-                        'key'
-            :
+                    'key'
+                :
                 this.dataForm.key
-            })
+                })
             }).
                 then(({data}) => {
                     if (data && data.code === 0) {

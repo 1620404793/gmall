@@ -17,14 +17,43 @@ import java.util.List;
 public class IndexController {
     @Autowired
     private IndexService indexService;
+
     @GetMapping("cates")
-    public Resp<List<CategoryEntity>> queryV1Categories(){
-        List<CategoryEntity> categoryEntities=this.indexService.queryV1Categories();
+    public Resp<List<CategoryEntity>> queryV1Categories() {
+        List<CategoryEntity> categoryEntities = this.indexService.queryV1Categories();
         return Resp.ok(categoryEntities);
     }
+
     @GetMapping("cates/{pid}")
-    public Resp<List<CategoryVO>> querySubCategories(@PathVariable("pid") Long pid){
-        List<CategoryVO> categoryVOS=indexService.querySubCategories(pid);
+    public Resp<List<CategoryVO>> querySubCategories(@PathVariable("pid") Long pid) {
+        List<CategoryVO> categoryVOS = indexService.querySubCategories(pid);
         return Resp.ok(categoryVOS);
     }
+
+    @GetMapping("test/lock")
+    public String testLock() {
+        this.indexService.testLock();
+        return "ok";
+    }
+
+    @GetMapping("test/read")
+    public String testRead() {
+        return this.indexService.testRead();
+    }
+
+    @GetMapping("test/write")
+    public String testWrite() {
+        return this.indexService.testWrite();
+    }
+
+    @GetMapping("test/latch")
+    public String testLatch() throws InterruptedException {
+        return this.indexService.testLatch();
+    }
+
+    @GetMapping("test/count")
+    public String testCount() {
+        return this.indexService.testCount();
+    }
 }
+

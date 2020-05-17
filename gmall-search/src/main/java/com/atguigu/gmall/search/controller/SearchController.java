@@ -16,6 +16,7 @@ import java.io.IOException;
 public class SearchController {
     @Autowired
     private SearchService searchService;
+
     @GetMapping
     public Resp<SearchResponseVO> search(SearchParam searchParam) throws IOException {
         SearchResponseVO responseVO = this.searchService.search(searchParam);

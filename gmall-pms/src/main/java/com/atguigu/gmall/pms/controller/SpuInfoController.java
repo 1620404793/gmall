@@ -11,7 +11,9 @@ import com.atguigu.core.bean.Resp;
 import com.atguigu.gmall.pms.vo.SpuInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,20 +34,25 @@ import com.atguigu.gmall.pms.service.SpuInfoService;
 public class SpuInfoController {
     @Autowired
     private SpuInfoService spuInfoService;
+    @Value("${item.rabbitmp.exchange}")
+    private String EXCHANG_NAME;
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
     @ApiOperation("spu商品信息查询(分页)")
     @GetMapping
-    public Resp<PageVo> querySpuPage(QueryCondition queryCondition,@RequestParam("catId")Long catId){
-        PageVo page = spuInfoService.querySpuPage(queryCondition,catId);
+    public Resp<PageVo> querySpuPage(QueryCondition queryCondition, @RequestParam("catId") Long catId) {
+        PageVo page = spuInfoService.querySpuPage(queryCondition, catId);
         return Resp.ok(page);
     }
 
     @PostMapping("page")
-    public Resp<List<SpuInfoEntity>> querySpuByPage(@RequestBody QueryCondition queryCondition){
+    public Resp<List<SpuInfoEntity>> querySpuByPage(@RequestBody QueryCondition queryCondition) {
         PageVo page = spuInfoService.queryPage(queryCondition);
-        List<SpuInfoEntity> list = (List<SpuInfoEntity>)page.getList();
+        List<SpuInfoEntity> list = (List<SpuInfoEntity>) page.getList();
         return Resp.ok(list);
     }
+
     /**
      * 列表
      */
@@ -91,7 +98,7 @@ public class SpuInfoController {
     @PreAuthorize("hasAuthority('pms:spuinfo:update')")
     public Resp<Object> update(@RequestBody SpuInfoEntity spuInfo) {
         spuInfoService.updateById(spuInfo);
-
+        this.amqpTemplate.convertAndSend(EXCHANG_NAME, "item.update", spuInfo.getId());
         return Resp.ok(null);
     }
 

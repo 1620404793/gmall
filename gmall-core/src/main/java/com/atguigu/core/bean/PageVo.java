@@ -47,10 +47,11 @@ public class PageVo implements Serializable {
 
     /**
      * 分页
-     * @param list        列表数据
-     * @param totalCount  总记录数
-     * @param pageSize    每页记录数
-     * @param currPage    当前页数
+     *
+     * @param list       列表数据
+     * @param totalCount 总记录数
+     * @param pageSize   每页记录数
+     * @param currPage   当前页数
      */
     public PageVo(List<?> list, int totalCount, int pageSize, int currPage) {
         this.list = list;

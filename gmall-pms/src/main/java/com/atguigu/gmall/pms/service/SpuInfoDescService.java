@@ -17,6 +17,7 @@ import com.atguigu.core.bean.QueryCondition;
 public interface SpuInfoDescService extends IService<SpuInfoDescEntity> {
 
     PageVo queryPage(QueryCondition params);
+
     public void saveSpuInfoDesc(SpuInfoVO spuInfoVO, Long spuId);
 
 }

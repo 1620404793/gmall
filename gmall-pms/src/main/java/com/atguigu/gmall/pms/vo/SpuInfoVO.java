@@ -4,6 +4,7 @@ import com.atguigu.gmall.pms.entity.SpuInfoEntity;
 import lombok.Data;
 
 import java.util.List;
+
 @Data
 public class SpuInfoVO extends SpuInfoEntity {
     //图片信息

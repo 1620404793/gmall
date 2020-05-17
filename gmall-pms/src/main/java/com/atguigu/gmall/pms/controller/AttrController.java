@@ -34,8 +34,8 @@ public class AttrController {
 
     @ApiOperation("根据类型和级别查询商品属性(排序)")
     @GetMapping
-    public Resp<PageVo> queryAttrsByCid(QueryCondition queryCondition,@RequestParam("cid")Long cid,@RequestParam(value = "type",defaultValue = "1")Integer type){
-        PageVo page = attrService.queryAttrsByCid(queryCondition,cid,type);
+    public Resp<PageVo> queryAttrsByCid(QueryCondition queryCondition, @RequestParam("cid") Long cid, @RequestParam(value = "type", defaultValue = "1") Integer type) {
+        PageVo page = attrService.queryAttrsByCid(queryCondition, cid, type);
         return Resp.ok(page);
     }
 

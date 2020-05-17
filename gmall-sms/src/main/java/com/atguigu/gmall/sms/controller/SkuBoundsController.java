@@ -1,13 +1,14 @@
 package com.atguigu.gmall.sms.controller;
 
 import java.util.Arrays;
-import java.util.Map;
+import java.util.List;
 
 
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
 
+import com.atguigu.gmall.sms.vo.SaleVO;
 import com.atguigu.gmall.sms.vo.SkuSaleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,12 +34,20 @@ public class SkuBoundsController {
     @Autowired
     private SkuBoundsService skuBoundsService;
 
+    @GetMapping("{skuId}")
+    public Resp<List<SkuSaleVO>> querySkuSalesBySkuId(@PathVariable("skuId") Long skuId) {
+        //查询积分信息
+        List<SkuSaleVO> skuSaleVOS = this.skuBoundsService.querySkuSalesBySkuId(skuId);
+        return Resp.ok(skuSaleVOS);
+    }
+
     @ApiOperation("新增sku的营销信息")
     @PostMapping("sku/sale/save")
-    public Resp<Object> saveSaleVO(@RequestBody SkuSaleVO skuSaleVO){
-        skuBoundsService.saveSkuSaleVO(skuSaleVO);
+    public Resp<Object> saveSaleVO(@RequestBody SaleVO saleVO) {
+        skuBoundsService.saveSkuSaleVO(saleVO);
         return Resp.ok(null);
     }
+
     /**
      * 列表
      */

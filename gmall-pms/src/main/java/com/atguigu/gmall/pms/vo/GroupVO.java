@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.List;
+
 @Data
 @ToString
 @EqualsAndHashCode(callSuper = true)

@@ -9,6 +9,7 @@ import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
 import com.atguigu.gmall.pms.vo.GroupVO;
+import com.atguigu.gmall.pms.vo.ItemGroupVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,26 +34,35 @@ public class AttrGroupController {
     @Autowired
     private AttrGroupService attrGroupService;
 
+    @ApiOperation("根据分类id和spuId查询分组及组下的规格参数")
+    @GetMapping("item/group/{cid}/{spuId}")
+    public Resp<List<ItemGroupVO>> queryItemGroupVObyCidAndSpuId(@PathVariable("cid") Long cid,
+                                                                 @PathVariable("spuId") Long spuId) {
+        List<ItemGroupVO> itemGroupVOS = this.attrGroupService.queryItemGroupVObyCidAndSpuId(cid, spuId);
+        return Resp.ok(itemGroupVOS);
+    }
+
     @ApiOperation("根据三级分类id查询分组及组下的规格参数")
     @GetMapping("/withattrs/cat/{catId}")
-    public Resp<List<GroupVO>> queryGroupWithAttrsByCid(@PathVariable("catId")Long cid){
-        List<GroupVO> groupVOS= attrGroupService.queryGroupWithAttrsByCid(cid);
+    public Resp<List<GroupVO>> queryGroupWithAttrsByCid(@PathVariable("catId") Long cid) {
+        List<GroupVO> groupVOS = attrGroupService.queryGroupWithAttrsByCid(cid);
         return Resp.ok(groupVOS);
     }
 
     @ApiOperation("根据分组id查询分组及组下的规格参数")
     @RequestMapping("withattr/{gid}")
-    public Resp<GroupVO> queryGroupWithAttrsByGid(@PathVariable("gid")Long gid){
-        GroupVO groupVO=attrGroupService.queryGroupWithAttrsByGid(gid);
+    public Resp<GroupVO> queryGroupWithAttrsByGid(@PathVariable("gid") Long gid) {
+        GroupVO groupVO = attrGroupService.queryGroupWithAttrsByGid(gid);
         return Resp.ok(groupVO);
     }
 
     @ApiOperation("分组的分页查询(排序)")
     @GetMapping("{catId}")
-    public Resp<PageVo> queryGroupByPage(QueryCondition condition,@PathVariable("catId")Long catId){
-        PageVo page = attrGroupService.queryGroupByPage(condition,catId);
+    public Resp<PageVo> queryGroupByPage(QueryCondition condition, @PathVariable("catId") Long catId) {
+        PageVo page = attrGroupService.queryGroupByPage(condition, catId);
         return Resp.ok(page);
     }
+
     /**
      * 列表
      */

@@ -33,7 +33,7 @@ public class AttrAttrgroupRelationController {
     private AttrAttrgroupRelationService attrAttrgroupRelationService;
 
     @PostMapping("delete/attr")
-    public Resp<String> deleteRelation(@RequestBody List<AttrAttrgroupRelationEntity> relationEntities){
+    public Resp<String> deleteRelation(@RequestBody List<AttrAttrgroupRelationEntity> relationEntities) {
         attrAttrgroupRelationService.deleteRelation(relationEntities);
         return Resp.ok("删除成功");
     }

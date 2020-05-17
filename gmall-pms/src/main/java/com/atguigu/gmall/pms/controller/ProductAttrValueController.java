@@ -34,10 +34,11 @@ public class ProductAttrValueController {
 
     @ApiOperation("通过spuId查找搜索属性")
     @GetMapping("{spuId}")
-    public Resp<List<ProductAttrValueEntity>> querySearchAttrValueBySpuId(@PathVariable("spuId")Long spuId){
-        List<ProductAttrValueEntity> searchAttrValues=this.productAttrValueService.querySearchAttrValueBySpuId(spuId);
+    public Resp<List<ProductAttrValueEntity>> querySearchAttrValueBySpuId(@PathVariable("spuId") Long spuId) {
+        List<ProductAttrValueEntity> searchAttrValues = this.productAttrValueService.querySearchAttrValueBySpuId(spuId);
         return Resp.ok(searchAttrValues);
     }
+
     /**
      * 列表
      */

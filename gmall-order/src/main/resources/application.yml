@@ -1,0 +1,26 @@
+server:
+  port: 8092
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  redis:
+    host: 192.168.253.128
+    password: 123456
+  rabbitmq:
+    virtual-host: /chengge
+    port: 5672
+    username: chengge
+    host: 192.168.253.128
+    password: chengge
+
+gmall:
+  jwt:
+    pubKeyPath: E:\ideaProject\easyMall\\rsa\\rsa.pub # 公钥地址
+    cookieName: GMALL_TOKEN
+    #订单肯定会登录了
+
+ribbon:
+  ReadTimeout: 60000 #请求处理的超时时间
+  ConnectTimeout: 60000 #请求连接的超时时间

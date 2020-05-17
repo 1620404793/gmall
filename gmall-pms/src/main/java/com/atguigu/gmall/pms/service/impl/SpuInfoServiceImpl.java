@@ -8,7 +8,7 @@ import com.atguigu.gmall.pms.service.*;
 import com.atguigu.gmall.pms.vo.BaseAttrVO;
 import com.atguigu.gmall.pms.vo.SkuInfoVO;
 import com.atguigu.gmall.pms.vo.SpuInfoVO;
-import com.atguigu.gmall.sms.vo.SkuSaleVO;
+import com.atguigu.gmall.sms.vo.SaleVO;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -30,8 +30,6 @@ import com.atguigu.core.bean.Query;
 import com.atguigu.core.bean.QueryCondition;
 
 import com.atguigu.gmall.pms.dao.SpuInfoDao;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 
@@ -55,6 +53,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     private AmqpTemplate amqpTemplate;
     @Value("${item.rabbitmp.exchange}")
     private String EXCHANG_NAME;
+
     @Override
     public PageVo queryPage(QueryCondition params) {
         IPage<SpuInfoEntity> page = this.page(
@@ -70,13 +69,13 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         QueryWrapper<SpuInfoEntity> queryWrapper = new QueryWrapper<>();
 
         //判断分类是否为0  0：查全站   ！0：查本类
-        if (catId!=0){
-            queryWrapper.eq("catalog_id",catId);
+        if (catId != 0) {
+            queryWrapper.eq("catalog_id", catId);
         }
         //判断是否有关键字   （查询语句存在括号）
         String key = queryCondition.getKey();
-        if (StringUtils.isNotEmpty(queryCondition.getKey())){
-            queryWrapper.and(t-> t.eq("id",key).or().like("spu_name",key));
+        if (StringUtils.isNotEmpty(queryCondition.getKey())) {
+            queryWrapper.and(t -> t.eq("id", key).or().like("spu_name", key));
         }
         IPage<SpuInfoEntity> page = this.page(
                 new Query<SpuInfoEntity>().getPage(queryCondition),
@@ -98,18 +97,18 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         //2.保存sku相关的三张表
         saveSkuAndSale(spuInfoVO, spuId);
         //int i=1/0;
-        sendMsg("insert",spuId);
+        sendMsg("insert", spuId);
     }
 
-    private void sendMsg(String type,Long spuId) {
+    private void sendMsg(String type, Long spuId) {
 
-        this.amqpTemplate.convertAndSend(EXCHANG_NAME,"item."+type,spuId);
+        this.amqpTemplate.convertAndSend(EXCHANG_NAME, "item." + type, spuId);
     }
 
 
     private void saveSkuAndSale(SpuInfoVO spuInfoVO, Long spuId) {
-        List<SkuInfoVO> skus=spuInfoVO.getSkus();
-        if (CollectionUtils.isEmpty(skus)){
+        List<SkuInfoVO> skus = spuInfoVO.getSkus();
+        if (CollectionUtils.isEmpty(skus)) {
             return;//如果skus为空，直接返回
         }
         skus.forEach(skuInfoVO -> {
@@ -119,14 +118,14 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             skuInfoVO.setBrandId(spuInfoVO.getBrandId());
             skuInfoVO.setCatalogId(spuInfoVO.getCatalogId());
             List<String> images = skuInfoVO.getImages();
-            if (!CollectionUtils.isEmpty(images)){
+            if (!CollectionUtils.isEmpty(images)) {
                 //根据前端是否有设置默认图片的功能，再设置默认图片
-                skuInfoVO.setSkuDefaultImg(StringUtils.isNotBlank(skuInfoVO.getSkuDefaultImg())?skuInfoVO.getSkuDefaultImg():images.get(0));
+                skuInfoVO.setSkuDefaultImg(StringUtils.isNotBlank(skuInfoVO.getSkuDefaultImg()) ? skuInfoVO.getSkuDefaultImg() : images.get(0));
             }
             this.skuInfoDao.insert(skuInfoVO);
             //2.2   保存pms_sku_images
             Long skuId = skuInfoVO.getSkuId();
-            if (!CollectionUtils.isEmpty(images)){
+            if (!CollectionUtils.isEmpty(images)) {
                 List<SkuImagesEntity> skuImagesEntities = images.stream().map(image -> {
                     SkuImagesEntity skuImagesEntity = new SkuImagesEntity();
                     skuImagesEntity.setImgUrl(image);
@@ -139,24 +138,24 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             }
             //2.3   保存pms_sale_attr_value  (集合可以批量保存)
             List<SkuSaleAttrValueEntity> saleAttrs = skuInfoVO.getSaleAttrs();
-            if (!CollectionUtils.isEmpty(saleAttrs)){
+            if (!CollectionUtils.isEmpty(saleAttrs)) {
                 //高效的集合遍历方法
                 saleAttrs.forEach(skuSaleAttrValueEntity -> skuSaleAttrValueEntity.setSkuId(skuId));
                 this.skuSaleAttrValueService.saveBatch(saleAttrs);
             }
             //3.保存营销相关的三张表（feign远程调用）
-            SkuSaleVO skuSaleVO = new SkuSaleVO();
-            BeanUtils.copyProperties(skuInfoVO,skuSaleVO);
-            skuSaleVO.setSkuId(skuId);
-            this.gmallSmsClient.saveSaleVO(skuSaleVO);
+            SaleVO saleVO = new SaleVO();
+            BeanUtils.copyProperties(skuInfoVO, saleVO);
+            saleVO.setSkuId(skuId);
+            this.gmallSmsClient.saveSaleVO(saleVO);
         });
     }
 
     private void saveBaseAttrValue(SpuInfoVO spuInfoVO, Long spuId) {
         List<BaseAttrVO> baseAttrs = spuInfoVO.getBaseAttrs();
-        if (!CollectionUtils.isEmpty(baseAttrs)){
+        if (!CollectionUtils.isEmpty(baseAttrs)) {
             List<ProductAttrValueEntity> productAttrValueEntities = baseAttrs.stream().map(baseAttrVO -> {
-                ProductAttrValueEntity productAttrValueEntity=baseAttrVO;
+                ProductAttrValueEntity productAttrValueEntity = baseAttrVO;
                 productAttrValueEntity.setSpuId(spuId);
                 return productAttrValueEntity;
             }).collect(Collectors.toList());

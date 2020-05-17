@@ -31,6 +31,27 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
+    @ApiOperation("用户注册功能")
+    @PostMapping("register")
+    public Resp<Object> register(MemberEntity memberEntity, @RequestParam("code") String code) {
+        this.memberService.register(memberEntity, code);
+        return Resp.ok(null);
+    }
+
+    @ApiOperation("数据验证功能")
+    @GetMapping("check/{data}/{type}")
+    public Resp<Boolean> checkData(@PathVariable("data") String data, @PathVariable("type") Integer type) {
+        Boolean flag = this.memberService.checkData(data, type);
+        return Resp.ok(flag);
+    }
+
+    @ApiOperation("根据用户名和密码查询用户")
+    @GetMapping("query")
+    public Resp<MemberEntity> queryUser(@RequestParam("username") String username, @RequestParam("password") String password) {
+        MemberEntity memberEntity = this.memberService.queryUser(username, password);
+        return Resp.ok(memberEntity);
+    }
+
     /**
      * 列表
      */

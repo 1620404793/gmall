@@ -30,11 +30,17 @@ spring:
             - Path=/api/index/**
           filters:
             - RewritePath=/api(?<segment>/?.*), $\{segment}
+            #单点登录时，服务需要登录才可进入的路径
+            # - Auth #gateWay  filter的配置规范，取前缀
 
-#没有配置服务名称的话，注册中心列表找不到该服务
-  #注意服务名和server-addr的层级关系 不然会出错
+    #没有配置服务名称的话，注册中心列表找不到该服务
+    #注意服务名和server-addr的层级关系 不然会出错
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
   application:
     name: gateway-service
+gmall:
+  jwt:
+    pubKeyPath: E:\ideaProject\easyMall\\rsa\\rsa.pub # 公钥地址
+    cookieName: GMALL_TOKEN

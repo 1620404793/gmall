@@ -2,9 +2,12 @@ package com.atguigu.gmall.pms.service.impl;
 
 import com.atguigu.gmall.pms.dao.AttrAttrgroupRelationDao;
 import com.atguigu.gmall.pms.dao.AttrDao;
+import com.atguigu.gmall.pms.dao.ProductAttrValueDao;
 import com.atguigu.gmall.pms.entity.AttrAttrgroupRelationEntity;
 import com.atguigu.gmall.pms.entity.AttrEntity;
+import com.atguigu.gmall.pms.entity.ProductAttrValueEntity;
 import com.atguigu.gmall.pms.vo.GroupVO;
+import com.atguigu.gmall.pms.vo.ItemGroupVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +35,9 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     private AttrAttrgroupRelationDao attrAttrgroupRelationDao;
     @Autowired
     private AttrDao attrDao;
+    @Autowired
+    private ProductAttrValueDao productAttrValueDao;
+
     @Override
     public PageVo queryPage(QueryCondition params) {
         IPage<AttrGroupEntity> page = this.page(
@@ -45,8 +51,8 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     @Override
     public PageVo queryGroupByPage(QueryCondition condition, Long catId) {
         QueryWrapper<AttrGroupEntity> queryWrapper = new QueryWrapper<>();
-        if (catId!=null){
-            queryWrapper.eq("catelog_id",catId);
+        if (catId != null) {
+            queryWrapper.eq("catelog_id", catId);
         }
         IPage<AttrGroupEntity> page = this.page(
                 //转换为Page对象，给dao查询数据库
@@ -61,15 +67,15 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     //通过组号查询组和中间表及组相关属性
     public GroupVO queryGroupWithAttrsByGid(Long gid) {
 
-        GroupVO groupVO=new GroupVO();
+        GroupVO groupVO = new GroupVO();
         //查询group
         AttrGroupEntity groupEntity = this.getById(gid);
-        BeanUtils.copyProperties(groupEntity,groupVO);
+        BeanUtils.copyProperties(groupEntity, groupVO);
 
-       // System.out.println("使用工具类copy后的结果:"+groupVO);
+        // System.out.println("使用工具类copy后的结果:"+groupVO);
         //根据gid查询关联关系，并获取attrIds
         List<AttrAttrgroupRelationEntity> relationEntities = attrAttrgroupRelationDao.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", gid));
-        if (CollectionUtils.isEmpty(relationEntities)){
+        if (CollectionUtils.isEmpty(relationEntities)) {
             return groupVO;
         }
         groupVO.setRelations(relationEntities);
@@ -93,6 +99,23 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
             return this.queryGroupWithAttrsByGid(attrGroupEntity.getAttrGroupId());
         }).collect(Collectors.toList());
         return groupVOS;
+    }
+
+    @Override
+    public List<ItemGroupVO> queryItemGroupVObyCidAndSpuId(Long cid, Long spuId) {
+        List<AttrGroupEntity> attrGroupEntities = this.list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", cid));
+        List<ItemGroupVO> itemGroupVOS = attrGroupEntities.stream().map(attrGroupEntity -> {
+            ItemGroupVO groupVO = new ItemGroupVO();
+            //设置组的名称
+            groupVO.setName(attrGroupEntity.getAttrGroupName());
+            //查询规格参数及值
+            List<AttrAttrgroupRelationEntity> relationEntities = this.attrAttrgroupRelationDao.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", attrGroupEntity.getAttrGroupId()));
+            List<Long> attrIds = relationEntities.stream().map(AttrAttrgroupRelationEntity::getAttrId).collect(Collectors.toList());
+            List<ProductAttrValueEntity> productAttrValueEntities = this.productAttrValueDao.selectList(new QueryWrapper<ProductAttrValueEntity>().eq("spu_id", spuId).in("attr_id", attrIds));
+            groupVO.setBaseAttrs(productAttrValueEntities);
+            return groupVO;
+        }).collect(Collectors.toList());
+        return itemGroupVOS;
     }
 
 }

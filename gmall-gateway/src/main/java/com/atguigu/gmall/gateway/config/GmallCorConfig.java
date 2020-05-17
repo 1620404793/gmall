@@ -9,7 +9,7 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 @Configuration
 public class GmallCorConfig {
     @Bean
-    public CorsWebFilter corsWebFilter(){
+    public CorsWebFilter corsWebFilter() {
         /*cors跨域配置对象*/
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("http://localhost:1000");//设置允许访问服务端的域名
@@ -18,7 +18,7 @@ public class GmallCorConfig {
         config.addAllowedHeader("*");
 
         /*配置源对象（配置被拦截的请求）*/
-        UrlBasedCorsConfigurationSource corsConfigurationSource=new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource corsConfigurationSource = new UrlBasedCorsConfigurationSource();
         corsConfigurationSource.registerCorsConfiguration("/**", config);
 
         //cors过滤器对象

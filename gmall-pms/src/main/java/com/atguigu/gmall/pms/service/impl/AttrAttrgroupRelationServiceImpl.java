@@ -32,8 +32,8 @@ public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupR
 
     @Override
     public void deleteRelation(List<AttrAttrgroupRelationEntity> relationEntities) {
-        relationEntities.forEach(relationEntitie->{
-            this.remove(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id",relationEntitie.getAttrId()).eq("attr_group_id",relationEntitie.getAttrGroupId()));
+        relationEntities.forEach(relationEntitie -> {
+            this.remove(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_id", relationEntitie.getAttrId()).eq("attr_group_id", relationEntitie.getAttrGroupId()));
         });
     }
 

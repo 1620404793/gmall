@@ -22,6 +22,7 @@ import com.atguigu.gmall.pms.service.AttrService;
 public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements AttrService {
     @Autowired
     private AttrAttrgroupRelationDao attrAttrgroupRelationDao;
+
     @Override
     public PageVo queryPage(QueryCondition params) {
         IPage<AttrEntity> page = this.page(
@@ -35,10 +36,10 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     @Override
     public PageVo queryAttrsByCid(QueryCondition queryCondition, Long cid, Integer type) {
         QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
-        if (cid!=null){
-            queryWrapper.eq("catelog_id",cid);
+        if (cid != null) {
+            queryWrapper.eq("catelog_id", cid);
         }
-        queryWrapper.eq("attr_type",type);
+        queryWrapper.eq("attr_type", type);
         IPage<AttrEntity> page = this.page(
                 new Query<AttrEntity>().getPage(queryCondition),
                 queryWrapper
@@ -51,10 +52,10 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     public void saveAttrVO(AttrVO attrVO) {
         //新增attr
         this.save(attrVO);
-        Long attrId=attrVO.getAttrId();
+        Long attrId = attrVO.getAttrId();
 
         //新增中间表
-        AttrAttrgroupRelationEntity relationEntity=new AttrAttrgroupRelationEntity();
+        AttrAttrgroupRelationEntity relationEntity = new AttrAttrgroupRelationEntity();
         relationEntity.setAttrGroupId(attrVO.getAttrGroupId());
         relationEntity.setAttrId(attrId);
         this.attrAttrgroupRelationDao.insert(relationEntity);

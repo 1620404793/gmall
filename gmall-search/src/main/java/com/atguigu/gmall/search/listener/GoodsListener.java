@@ -31,19 +31,20 @@ public class GoodsListener {
     private GmallPmsClient gmallPmsClient;
     @Autowired
     private GmallWmsClient gmallWmsClient;
+
     @RabbitListener(
             bindings = @QueueBinding(
-                    value = @Queue(value = "gmall-search-queue",durable = "true"),
-                    exchange = @Exchange(value = "GMALL-PMS-EXCHANG",type = ExchangeTypes.TOPIC,ignoreDeclarationExceptions = "true"),
+                    value = @Queue(value = "gmall-search-queue", durable = "true"),
+                    exchange = @Exchange(value = "GMALL-PMS-EXCHANG", type = ExchangeTypes.TOPIC, ignoreDeclarationExceptions = "true"),
                     key = {
-                        "item.insert","item.update"
+                            "item.insert", "item.update"
                     }
             )
     )
-    public void listener(Long spuId){
+    public void listener(Long spuId) {
         Resp<List<SkuInfoEntity>> skuResp = this.gmallPmsClient.querySkuBySpuId(spuId);
         List<SkuInfoEntity> skuInfoEntityList = skuResp.getData();
-        if (! CollectionUtils.isEmpty(skuInfoEntityList)){
+        if (!CollectionUtils.isEmpty(skuInfoEntityList)) {
             //把sku转化成goods对象
             List<Goods> goodsList = skuInfoEntityList.stream().map(skuInfoEntity -> {
                 Goods goods = new Goods();
@@ -51,7 +52,7 @@ public class GoodsListener {
                 //查询搜索属性及值
                 Resp<List<ProductAttrValueEntity>> attrValueResp = this.gmallPmsClient.querySearchAttrValueBySpuId(spuId);
                 List<ProductAttrValueEntity> attrValueEntities = attrValueResp.getData();
-                if (!CollectionUtils.isEmpty(attrValueEntities)){
+                if (!CollectionUtils.isEmpty(attrValueEntities)) {
                     List<SearchAttr> searchAttrs = attrValueEntities.stream().map(productAttrValueEntity -> {
                         SearchAttr searchAttr = new SearchAttr();
                         searchAttr.setAttrId(productAttrValueEntity.getAttrId());
@@ -65,14 +66,14 @@ public class GoodsListener {
                 //查询品牌
                 Resp<BrandEntity> brandEntityResp = gmallPmsClient.queryBrandById(skuInfoEntity.getBrandId());
                 BrandEntity brandEntity = brandEntityResp.getData();
-                if (brandEntity!=null){
+                if (brandEntity != null) {
                     goods.setBrandId(skuInfoEntity.getBrandId());
                     goods.setBrandName(brandEntity.getName());
                 }
                 //查询分类
                 Resp<CategoryEntity> categoryEntityResp = this.gmallPmsClient.queryCategoryById(skuInfoEntity.getCatalogId());
                 CategoryEntity categoryEntity = categoryEntityResp.getData();
-                if (categoryEntity!=null){
+                if (categoryEntity != null) {
                     goods.setCategoryId(skuInfoEntity.getCatalogId());
                     goods.setCategoryName(categoryEntity.getName());
                 }
@@ -89,7 +90,7 @@ public class GoodsListener {
                 Resp<List<WareSkuEntity>> listResp = this.gmallWmsClient.queryWareSkuBySkuId(skuInfoEntity.getSkuId());
                 List<WareSkuEntity> wareSkuEntities = listResp.getData();
                 //stream().anyMatch任意一个进行匹配
-                if (!CollectionUtils.isEmpty(wareSkuEntities)){
+                if (!CollectionUtils.isEmpty(wareSkuEntities)) {
                     boolean flag = wareSkuEntities.stream().anyMatch(wareSkuEntity -> wareSkuEntity.getStock() > 0);
                     goods.setStore(flag);
                 }

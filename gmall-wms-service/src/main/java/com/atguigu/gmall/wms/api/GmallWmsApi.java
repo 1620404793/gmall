@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface GmallWmsApi {
     @GetMapping("wms/waresku/{skuId}")  //因为有不同地址的仓库，所以返回值为list
-    public Resp<List<WareSkuEntity>> queryWareSkuBySkuId(@PathVariable("skuId")Long skuId);
+    public Resp<List<WareSkuEntity>> queryWareSkuBySkuId(@PathVariable("skuId") Long skuId);
 }

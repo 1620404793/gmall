@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct;
 public class ElasticsearchConfig {
 
     @Bean
-    public RestHighLevelClient restHighLevelClient(){
+    public RestHighLevelClient restHighLevelClient() {
         return new RestHighLevelClient(RestClient.builder(HttpHost.create("192.168.253.128:9200")));//可以是集群写多个
     }
   /* @PostConstruct

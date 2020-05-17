@@ -33,15 +33,17 @@ public class GmallSearchApplicationTests {
     private GmallPmsClient gmallPmsClient;
     @Autowired
     private GmallWmsClient gmallWmsClient;
+
     @Test
     public void contextLoads() {
         restTemplate.createIndex(Goods.class);
         this.restTemplate.putMapping(Goods.class);
     }
+
     @Test
-    public void importData(){
-        Long pageNum=1l;
-        Long pageSize=100l;
+    public void importData() {
+        Long pageNum = 1l;
+        Long pageSize = 100l;
         do {
             //分页查询spu
             QueryCondition queryCondition = new QueryCondition();
@@ -53,7 +55,7 @@ public class GmallSearchApplicationTests {
             spus.forEach(spuInfoEntity -> {
                 Resp<List<SkuInfoEntity>> skuResp = this.gmallPmsClient.querySkuBySpuId(spuInfoEntity.getId());
                 List<SkuInfoEntity> skuInfoEntityList = skuResp.getData();
-                if (! CollectionUtils.isEmpty(skuInfoEntityList)){
+                if (!CollectionUtils.isEmpty(skuInfoEntityList)) {
                     //把sku转化成goods对象
                     List<Goods> goodsList = skuInfoEntityList.stream().map(skuInfoEntity -> {
                         Goods goods = new Goods();
@@ -61,7 +63,7 @@ public class GmallSearchApplicationTests {
                         //查询搜索属性及值
                         Resp<List<ProductAttrValueEntity>> attrValueResp = this.gmallPmsClient.querySearchAttrValueBySpuId(spuInfoEntity.getId());
                         List<ProductAttrValueEntity> attrValueEntities = attrValueResp.getData();
-                        if (!CollectionUtils.isEmpty(attrValueEntities)){
+                        if (!CollectionUtils.isEmpty(attrValueEntities)) {
                             List<SearchAttr> searchAttrs = attrValueEntities.stream().map(productAttrValueEntity -> {
                                 SearchAttr searchAttr = new SearchAttr();
                                 searchAttr.setAttrId(productAttrValueEntity.getAttrId());
@@ -75,14 +77,14 @@ public class GmallSearchApplicationTests {
                         //查询品牌
                         Resp<BrandEntity> brandEntityResp = gmallPmsClient.queryBrandById(skuInfoEntity.getBrandId());
                         BrandEntity brandEntity = brandEntityResp.getData();
-                        if (brandEntity!=null){
+                        if (brandEntity != null) {
                             goods.setBrandId(skuInfoEntity.getBrandId());
                             goods.setBrandName(brandEntity.getName());
                         }
-                         //查询分类
+                        //查询分类
                         Resp<CategoryEntity> categoryEntityResp = this.gmallPmsClient.queryCategoryById(skuInfoEntity.getCatalogId());
                         CategoryEntity categoryEntity = categoryEntityResp.getData();
-                        if (categoryEntity!=null){
+                        if (categoryEntity != null) {
                             goods.setCategoryId(skuInfoEntity.getCatalogId());
                             goods.setCategoryName(categoryEntity.getName());
                         }
@@ -98,7 +100,7 @@ public class GmallSearchApplicationTests {
                         Resp<List<WareSkuEntity>> listResp = this.gmallWmsClient.queryWareSkuBySkuId(skuInfoEntity.getSkuId());
                         List<WareSkuEntity> wareSkuEntities = listResp.getData();
                         //stream().anyMatch任意一个进行匹配
-                        if (!CollectionUtils.isEmpty(wareSkuEntities)){
+                        if (!CollectionUtils.isEmpty(wareSkuEntities)) {
                             boolean flag = wareSkuEntities.stream().anyMatch(wareSkuEntity -> wareSkuEntity.getStock() > 0);
                             goods.setStore(flag);
                         }
@@ -112,7 +114,7 @@ public class GmallSearchApplicationTests {
 
             //导入索引库
 
-            pageSize=(long) spus.size();
-        }while (pageSize==100);
+            pageSize = (long) spus.size();
+        } while (pageSize == 100);
     }
 }

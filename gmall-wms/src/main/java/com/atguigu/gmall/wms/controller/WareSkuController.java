@@ -36,10 +36,11 @@ public class WareSkuController {
 
     @ApiOperation("根据skuId查询库存信息")
     @GetMapping("{skuId}")  //因为有不同地址的仓库，所以返回值为list
-    public Resp<List<WareSkuEntity>> queryWareSkuBySkuId(@PathVariable("skuId")Long skuId){
+    public Resp<List<WareSkuEntity>> queryWareSkuBySkuId(@PathVariable("skuId") Long skuId) {
         List<WareSkuEntity> wareSkuEntities = wareSkuService.list(new QueryWrapper<WareSkuEntity>().eq("sku_id", skuId));
         return Resp.ok(wareSkuEntities);
     }
+
     /**
      * 列表
      */

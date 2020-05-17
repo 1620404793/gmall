@@ -21,7 +21,7 @@ import java.util.Map;
 public class OssController {
 
     @GetMapping("/policy")
-    public Resp<Object> policy(){
+    public Resp<Object> policy() {
         String accessId = "LTAI4FynxTmgN16ES5Hajvni"; // 请填写您的AccessKeyId。
         String accessKey = "cmjPB6KkThg3XQGSJk713W4zK1B2dc"; // 请填写您的AccessKeySecret。
         String endpoint = "oss-cn-hangzhou.aliyuncs.com"; // 请填写您的 endpoint。

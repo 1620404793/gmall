@@ -33,26 +33,27 @@ import com.atguigu.gmall.pms.service.CategoryService;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+
     //查询两级三级的分类
     @ApiOperation("获取某个菜单的子菜单")
     @GetMapping("{pid}")
-    public Resp<List<CategoryVO>> querySubCategories(@PathVariable("pid") Long pid){
-        List<CategoryVO> categoryVOS=this.categoryService.querySubCategories(pid);
+    public Resp<List<CategoryVO>> querySubCategories(@PathVariable("pid") Long pid) {
+        List<CategoryVO> categoryVOS = this.categoryService.querySubCategories(pid);
         return Resp.ok(categoryVOS);
     }
 
     @ApiOperation("通过商品的分类查询分组")
     @GetMapping
-    public Resp<List<CategoryEntity>> queryCategoryByPidOrLevel(@RequestParam(value = "level",defaultValue = "0") Integer level,//参数能设置默认值 优先设置默认值
-                                                          @RequestParam(value = "parentCid",required = false)Long parentCid){//参数required=false不是必须要传入的参数
+    public Resp<List<CategoryEntity>> queryCategoryByPidOrLevel(@RequestParam(value = "level", defaultValue = "0") Integer level,//参数能设置默认值 优先设置默认值
+                                                                @RequestParam(value = "parentCid", required = false) Long parentCid) {//参数required=false不是必须要传入的参数
         QueryWrapper<CategoryEntity> queryWrapper = new QueryWrapper();
         //判断分类的级别是否为0
-        if (level!=0){
-            queryWrapper.eq("cat_level",level);
+        if (level != 0) {
+            queryWrapper.eq("cat_level", level);
         }
         //判断父节点的id是否为空
-        if (parentCid!=null){
-            queryWrapper.eq("parent_cid",parentCid);
+        if (parentCid != null) {
+            queryWrapper.eq("parent_cid", parentCid);
         }
         List<CategoryEntity> categoryEntityList = categoryService.list(queryWrapper);
         return Resp.ok(categoryEntityList);

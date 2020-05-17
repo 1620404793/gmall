@@ -9,8 +9,8 @@ import java.util.List;
 
 public class BaseAttrVO extends ProductAttrValueEntity {
     //根据json属性名，重写Set方法
-    public void setValueSelected(List<String> selecteds){
-        if (CollectionUtils.isEmpty(selecteds)){
+    public void setValueSelected(List<String> selecteds) {
+        if (CollectionUtils.isEmpty(selecteds)) {
             return;
         }
         this.setAttrValue(StringUtils.join(','));

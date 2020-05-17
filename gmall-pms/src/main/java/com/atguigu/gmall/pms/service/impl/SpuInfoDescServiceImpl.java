@@ -40,10 +40,10 @@ public class SpuInfoDescServiceImpl extends ServiceImpl<SpuInfoDescDao, SpuInfoD
     //使用cglib动态代理（同一个service里面并没有走多个事务，走父方法的事务）   2.1版本以下JDK代理，基于接口实现(在接口中提供相应的方法)
     public void saveSpuInfoDesc(SpuInfoVO spuInfoVO, Long spuId) {
         List<String> spuImages = spuInfoVO.getSpuImages();
-        if (!CollectionUtils.isEmpty(spuImages)){
-            SpuInfoDescEntity descEntity=new SpuInfoDescEntity();
+        if (!CollectionUtils.isEmpty(spuImages)) {
+            SpuInfoDescEntity descEntity = new SpuInfoDescEntity();
             descEntity.setSpuId(spuId);
-            descEntity.setDecript(StringUtils.join(spuImages,','));
+            descEntity.setDecript(StringUtils.join(spuImages, ','));
             this.save(descEntity);
         }
     }

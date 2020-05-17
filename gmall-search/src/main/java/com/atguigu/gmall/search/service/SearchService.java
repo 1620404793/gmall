@@ -37,6 +37,7 @@ import java.util.stream.Collectors;
 public class SearchService {
     @Autowired
     private RestHighLevelClient restHighLevelClient;
+
     public SearchResponseVO search(SearchParam searchParam) throws IOException {
         //构建dsl语句
         SearchRequest searchRequest = this.buildQueryDsl(searchParam);
@@ -48,8 +49,9 @@ public class SearchService {
         responseVO.setPageNum(searchParam.getPageNum());
         return responseVO;
     }
-    private SearchResponseVO parseSearchResult(SearchResponse searchResponse){
-        SearchResponseVO responseVO=new SearchResponseVO();
+
+    private SearchResponseVO parseSearchResult(SearchResponse searchResponse) {
+        SearchResponseVO responseVO = new SearchResponseVO();
         SearchHits hits = searchResponse.getHits();
         //获取总记录数
         responseVO.setTotal(hits.totalHits);
@@ -92,8 +94,8 @@ public class SearchService {
 
         //构建产品的结果集
         SearchHit[] subHits = hits.getHits();
-        List<Goods> goodsList=new ArrayList<>();
-        for (SearchHit hit:subHits){
+        List<Goods> goodsList = new ArrayList<>();
+        for (SearchHit hit : subHits) {
             Goods goods = JSON.parseObject(hit.getSourceAsString(), Goods.class);
             goods.setTitle(hit.getHighlightFields().get("title").getFragments()[0].toString());
             goodsList.add(goods);
@@ -106,7 +108,7 @@ public class SearchService {
         //从嵌套对象中获取规格参数ID的聚合对象
         ParsedLongTerms attrIdAgg = attrAgg.getAggregations().get("attrIdAgg");
         List<? extends Terms.Bucket> buckets = attrIdAgg.getBuckets();
-        if (!CollectionUtils.isEmpty(buckets)){
+        if (!CollectionUtils.isEmpty(buckets)) {
             List<SearchResponseAttrVO> attrsVO = buckets.stream().map(bucket -> {
                 //构建SearchResponseAttrVO对象
                 SearchResponseAttrVO attrVO = new SearchResponseAttrVO();
@@ -130,10 +132,10 @@ public class SearchService {
         return responseVO;
     }
 
-    private SearchRequest buildQueryDsl(SearchParam searchParam){
+    private SearchRequest buildQueryDsl(SearchParam searchParam) {
         //查询关键字
         String keyword = searchParam.getKeyword();
-        if (StringUtils.isEmpty(keyword)){
+        if (StringUtils.isEmpty(keyword)) {
             return null;
         }
         //查询条件的构建器
@@ -141,25 +143,25 @@ public class SearchService {
         //1.构建查询条件和过滤的条件
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
         //1.1构建查询条件
-        boolQueryBuilder.must(QueryBuilders.matchQuery("title",keyword).operator(Operator.AND));
+        boolQueryBuilder.must(QueryBuilders.matchQuery("title", keyword).operator(Operator.AND));
         //1.2构建过滤条件
         //1.2.1  构建品牌的过滤条件
         String[] brand = searchParam.getBrand();
-        if (brand!=null&&brand.length!=0){
-            boolQueryBuilder.filter(QueryBuilders.termsQuery("brandId",brand));
+        if (brand != null && brand.length != 0) {
+            boolQueryBuilder.filter(QueryBuilders.termsQuery("brandId", brand));
         }
         //1.2.2  构建分类的过滤条件
         String[] catelog3 = searchParam.getCatelog3();
-        if (catelog3!=null&&catelog3.length!=0){
-            boolQueryBuilder.filter(QueryBuilders.termsQuery("categoryId",catelog3));
+        if (catelog3 != null && catelog3.length != 0) {
+            boolQueryBuilder.filter(QueryBuilders.termsQuery("categoryId", catelog3));
         }
         //1.2.3 构建规格属性嵌套过滤
         String[] props = searchParam.getProps();
-        if (props!=null&&props.length!=0){
-            for (String prop:props){
+        if (props != null && props.length != 0) {
+            for (String prop : props) {
                 //以 : 进行分隔，分隔后应该是两个元素，1-attrId 2-attrValue
                 String[] split = StringUtils.split(prop, ":");
-                if (split==null||split.length!=2){
+                if (split == null || split.length != 2) {
                     continue;
                 }
                 //以-分割处理出AttrValues
@@ -169,8 +171,8 @@ public class SearchService {
                 //构造嵌套查询中的子查询
                 BoolQueryBuilder subBoolQuery = QueryBuilders.boolQuery();
                 //构建子查询中的过滤条件
-                subBoolQuery.must(QueryBuilders.termQuery("attrs.attrId",split[0]));
-                subBoolQuery.must(QueryBuilders.termsQuery("attrs.attrValue",attrValues));
+                subBoolQuery.must(QueryBuilders.termQuery("attrs.attrId", split[0]));
+                subBoolQuery.must(QueryBuilders.termsQuery("attrs.attrValue", attrValues));
 
                 //把嵌套查询放入到过滤器中
                 boolQuery.must(QueryBuilders.nestedQuery("attrs", subBoolQuery, ScoreMode.None));
@@ -181,10 +183,10 @@ public class SearchService {
         RangeQueryBuilder rangeQuery = QueryBuilders.rangeQuery("price");
         Integer priceFrom = searchParam.getPriceFrom();
         Integer priceTo = searchParam.getPriceTo();
-        if (priceFrom!=null){
+        if (priceFrom != null) {
             rangeQuery.gte(priceFrom);
         }
-        if (priceTo!=null){
+        if (priceTo != null) {
             rangeQuery.lte(priceTo);
         }
         boolQueryBuilder.filter(rangeQuery);
@@ -194,24 +196,24 @@ public class SearchService {
         //2.构建分页
         Integer pageNum = searchParam.getPageNum();
         Integer pageSize = searchParam.getPageSize();
-        sourceBuilder.from((pageNum-1)*pageSize);
+        sourceBuilder.from((pageNum - 1) * pageSize);
         sourceBuilder.size(pageSize);
 
         //3.构建排序
         String order = searchParam.getOrder();
-        if (!StringUtils.isEmpty(order)){
+        if (!StringUtils.isEmpty(order)) {
             String[] split = StringUtils.split(order, ":");
-            if (split!=null&&split.length==2){
-                String field=null;
-                switch (split[0]){
+            if (split != null && split.length == 2) {
+                String field = null;
+                switch (split[0]) {
                     case "1":
-                        field="sale";
+                        field = "sale";
                         break;
                     case "2":
-                        field="price";
+                        field = "price";
                         break;
                 }
-                sourceBuilder.sort(field,StringUtils.equals("asc",split[1])? SortOrder.ASC:SortOrder.DESC);
+                sourceBuilder.sort(field, StringUtils.equals("asc", split[1]) ? SortOrder.ASC : SortOrder.DESC);
             }
         }
         //4.构建高亮
@@ -226,17 +228,17 @@ public class SearchService {
         sourceBuilder.aggregation(categoryIdAgg);
 
         //5.3搜索的规格属性聚合
-        NestedAggregationBuilder attrAgg = AggregationBuilders.nested("attrAgg","attrs").
+        NestedAggregationBuilder attrAgg = AggregationBuilders.nested("attrAgg", "attrs").
                 subAggregation(AggregationBuilders.terms("attrIdAgg").field("attrs.attrId").
-                subAggregation(AggregationBuilders.terms("attrNameAgg").field("attrs.attrName")).
-                subAggregation(AggregationBuilders.terms("attrValueAgg").field("attrs.attrValue")));
+                        subAggregation(AggregationBuilders.terms("attrNameAgg").field("attrs.attrName")).
+                        subAggregation(AggregationBuilders.terms("attrValueAgg").field("attrs.attrValue")));
         sourceBuilder.aggregation(attrAgg);
 
         //结果集的过滤
-        sourceBuilder.fetchSource(new String[]{"skuId","pic","title","price"},null);
+        sourceBuilder.fetchSource(new String[]{"skuId", "pic", "title", "price"}, null);
 
         //查询参数
-        SearchRequest searchRequest=new SearchRequest("goods");
+        SearchRequest searchRequest = new SearchRequest("goods");
         searchRequest.types("info");
         searchRequest.source(sourceBuilder);
         return searchRequest;

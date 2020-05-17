@@ -22,6 +22,7 @@ import com.atguigu.gmall.pms.service.ProductAttrValueService;
 public class ProductAttrValueServiceImpl extends ServiceImpl<ProductAttrValueDao, ProductAttrValueEntity> implements ProductAttrValueService {
     @Autowired
     private ProductAttrValueDao productAttrValueDao;
+
     @Override
     public PageVo queryPage(QueryCondition params) {
         IPage<ProductAttrValueEntity> page = this.page(
