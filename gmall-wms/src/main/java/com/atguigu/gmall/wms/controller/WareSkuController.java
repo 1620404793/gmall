@@ -8,9 +8,11 @@ import java.util.Map;
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
+import com.atguigu.gmall.wms.vo.SkuLockVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +34,14 @@ import com.atguigu.gmall.wms.service.WareSkuService;
 public class WareSkuController {
     @Autowired
     private WareSkuService wareSkuService;
-
+    @PostMapping
+    public Resp<String> checkAndLockStore(@RequestBody List<SkuLockVO> skuLockVOS){
+        String msg=wareSkuService.checkAndLockStore(skuLockVOS);
+        if (StringUtils.isEmpty(msg)){
+            return Resp.ok(null);
+        }
+        return Resp.ok(msg);//如果为空，代表成功，不为空，需要展示错误消息
+    }
 
     @ApiOperation("根据skuId查询库存信息")
     @GetMapping("{skuId}")  //因为有不同地址的仓库，所以返回值为list

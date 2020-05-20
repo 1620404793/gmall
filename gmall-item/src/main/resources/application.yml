@@ -5,3 +5,6 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+ribbon:
+  ReadTimeout: 60000 #请求处理的超时时间
+  ConnectTimeout: 60000 #请求连接的超时时间

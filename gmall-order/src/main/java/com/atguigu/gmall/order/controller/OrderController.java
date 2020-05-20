@@ -3,7 +3,7 @@ package com.atguigu.gmall.order.controller;
 import com.atguigu.core.bean.Resp;
 import com.atguigu.gmall.order.service.OrderService;
 import com.atguigu.gmall.order.vo.OrderConfirmVO;
-import com.atguigu.gmall.order.vo.OrderSubmitVo;
+import com.atguigu.gmall.oms.vo.OrderSubmitVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

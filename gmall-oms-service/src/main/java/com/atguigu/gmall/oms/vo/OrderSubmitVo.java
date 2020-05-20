@@ -1,4 +1,4 @@
-package com.atguigu.gmall.order.vo;
+package com.atguigu.gmall.oms.vo;
 
 import com.atguigu.gmall.ums.entity.MemberReceiveAddressEntity;
 import lombok.Data;
@@ -22,4 +22,6 @@ public class OrderSubmitVo {
     private Integer bounds;
 
     private BigDecimal totalPrice; //校验价格
+
+    private Long userId;
 }

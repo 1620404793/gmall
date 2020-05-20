@@ -7,11 +7,12 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@SpringBootApplication
+
 @EnableDiscoveryClient
 @EnableSwagger2
 @MapperScan("com.atguigu.gmall.ums.dao")
 @EnableFeignClients
+@SpringBootApplication
 public class GmailUmsApplication {
     public static void main(String[] args) {
         SpringApplication.run(GmailUmsApplication.class, args);

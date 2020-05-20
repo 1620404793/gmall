@@ -8,3 +8,6 @@ spring:
   redis:
     host: 192.168.253.128
     password: 123456
+ribbon:
+  ReadTimeout: 60000 #请求处理的超时时间
+  ConnectTimeout: 60000 #请求连接的超时时间

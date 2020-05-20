@@ -27,3 +27,6 @@ spring:
 item:
   rabbitmp:
     exchange: GMALL-PMS-EXCHANG
+ribbon:
+  ReadTimeout: 60000 #请求处理的超时时间
+  ConnectTimeout: 60000 #请求连接的超时时间

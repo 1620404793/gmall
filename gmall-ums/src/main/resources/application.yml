@@ -16,3 +16,6 @@ mybatis-plus:
     db-config:
       id-type: auto  #默认使用数据库自增的方式
   mapper-locations: classpath:mapper/ums/**/*.xml  #读取mapper映射文件
+ribbon:
+  ReadTimeout: 60000 #请求处理的超时时间
+  ConnectTimeout: 60000 #请求连接的超时时间
