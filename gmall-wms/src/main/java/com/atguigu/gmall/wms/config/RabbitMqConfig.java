@@ -17,7 +17,7 @@ public class RabbitMqConfig {
         Map<String, Object> map = new HashMap<>();
         map.put("x-dead-letter-exchange", "GMALL-ORDER-EXCHANGE");
         map.put("x-dead-letter-routing-key", "stock.unlock");
-        map.put("x-message-ttl", 150000);
+        map.put("x-message-ttl", 350000);
        // map.put("x-queue-type", "classic");
         return new Queue("WMS-TTL-QUEUE", true, false, false, map);
     }

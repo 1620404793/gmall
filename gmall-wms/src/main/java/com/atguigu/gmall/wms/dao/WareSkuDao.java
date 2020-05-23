@@ -22,4 +22,7 @@ public interface WareSkuDao extends BaseMapper<WareSkuEntity> {
     int lockStore(@Param("id") Long id,@Param("count")Integer count);
 
     int unLockStore(@Param("wareSkuId") Long wareSkuId, @Param("count") Integer count);
+    //减库存
+    int minusStore(@Param("wareSkuId") Long wareSkuId, @Param("count") Integer count);
+
 }

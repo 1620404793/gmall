@@ -97,8 +97,6 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         }else {
             skuLockVO.setLock(false);//没有锁住
         }
-
-
         //释放锁
         lock.unlock();
     }

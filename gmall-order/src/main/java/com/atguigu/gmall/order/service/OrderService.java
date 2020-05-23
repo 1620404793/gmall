@@ -139,7 +139,7 @@ public class OrderService {
         return orderConfirmVO;
     }
 
-    public void submit(OrderSubmitVo submitVo) {
+    public OrderEntity submit(OrderSubmitVo submitVo) {
         UserInfo userInfo = LoginInterceptor.getUserInfo();
 
         //1.防重复提交，查询redis中有没有orderTaken的信息。有则是第一次提交，放行并删除redis中的orderTaken
@@ -186,9 +186,10 @@ public class OrderService {
         }
  
         //4.下单（创建订单，及订单详情，远程接口待开发）
+        Resp<OrderEntity> orderEntityResp = null;
         try {
             submitVo.setUserId(userInfo.getId());
-            Resp<OrderEntity> orderEntityResp = omsClient.saveOrder(submitVo);
+            orderEntityResp= omsClient.saveOrder(submitVo);
             OrderEntity orderEntity = orderEntityResp.getData();
         }catch (Exception e){
             e.printStackTrace();
@@ -204,7 +205,9 @@ public class OrderService {
         List<Long> skuIds = items.stream().map(OrderItemVO::getSkuId).collect(Collectors.toList());
         map.put("skuIds",skuIds);
         amqpTemplate.convertAndSend("GMALL-ORDER-EXCHANGE","cart.delete",map);
-
-
+        if (orderEntityResp!=null){
+            return orderEntityResp.getData();
+        }
+        return null;
     }
 }

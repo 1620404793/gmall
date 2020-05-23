@@ -15,4 +15,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface OrderDao extends BaseMapper<OrderEntity> {
 
     public int closeOrder(String OrderToken);
+
+    public int payOrder(String orderToken);
 }

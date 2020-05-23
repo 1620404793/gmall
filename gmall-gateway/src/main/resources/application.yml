@@ -33,6 +33,12 @@ spring:
             #单点登录时，服务需要登录才可进入的路径
             # - Auth #gateWay  filter的配置规范，取前缀
 
+        - id: order-route
+          uri: lb://order-service
+          predicates:
+            - Path=/api/order/**
+          filters:
+            - RewritePath=/api(?<segment>/?.*), $\{segment}
     #没有配置服务名称的话，注册中心列表找不到该服务
     #注意服务名和server-addr的层级关系 不然会出错
     nacos:
