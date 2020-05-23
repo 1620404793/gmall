@@ -1,7 +1,8 @@
 # gmall
 购物商城电商平台
 
-#Nacos服务:阿里官方提供了nacos-server
+#Nacos服务
+阿里官方提供了nacos-server
 
 注册中心
 
