@@ -1,7 +1,7 @@
 # gmall
 购物商城电商平台
 
-Nacos服务:阿里官方提供了nacos-server
+#Nacos服务:阿里官方提供了nacos-server
 
 注册中心
 
@@ -26,7 +26,7 @@ Nacos服务:阿里官方提供了nacos-server
     2.统一管理配置文件
     3.配置版本管理
     
-Gateway：网关组件 （zuul）
+#Gateway：网关组件 （zuul）
 
 	动态路由、负载均衡、身份认证、限流、路径重写、熔断降级、请求过滤
 	Spring.cloud.gateway.routes[0]
@@ -36,7 +36,7 @@ Gateway：网关组件 （zuul）
     4.	Filters：过滤器（拦截）
     
     
-    
+#商品信息 
 Spu：标准商品单元，商品的集合
 
 Sku：库存量单元，具体的商品
@@ -46,6 +46,8 @@ Sku：库存量单元，具体的商品
 表关系
 
 保存商品（pms sms wms）
+
+#搜索技术
 
 倒排索引，文档列表，倒排索引区
 
@@ -62,7 +64,7 @@ Elasticsearch:
 	Ik分词器：ik_max_word  ik_smart
 		扩展词典*（nginx配置，添加分词后）
 
-Rabbitmq
+#Rabbitmq
 
 MQ:message queue
 
@@ -73,7 +75,7 @@ MQ:message queue
     AMQP(rabbitmq 协议 五种消息类型 任何语言都可以实现)  
     JMS（activemq  java规范 提供了两种消息模型 必须是java实现）
 
-三级分类的查询
+#三级分类的查询 
 
 添加缓存：
 
@@ -104,7 +106,7 @@ MQ:message queue
 
 异步编排：CompletableFuture  -> 优化大量的远程调用
 
-注册功能：
+#注册功能：
 
 	1.校验数据是否可用：用户名 手机号 邮箱
 	2.发送短信验证码：生成验证码  发消息并把短信保存到redis中
@@ -121,7 +123,7 @@ MQ:message queue
 		3.对用户输入的密码加盐加密
 		4.和数据库中的密码比较
 		
-单点登录：
+#单点登录：
 
 	无状态登录（jwt 在服务器中不需要保存用户状态）
 	有状态登录(session redis)
@@ -135,7 +137,7 @@ MQ:message queue
 		不可逆加密：md5
 		非对称加密：rsa（公钥、私钥
 		
-购物车需求
+#购物车需求
 
     删除购物车
     查询购物车
@@ -156,7 +158,7 @@ MQ:message queue
 		Redis
 		Mongodb
 
-订单
+#订单
 
 	订单确认页
 	 数据模型:orderToken防止表单的重复提交 收货地址列表 配送方式 送货清单 积分
